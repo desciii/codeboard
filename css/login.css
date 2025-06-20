@@ -1,0 +1,97 @@
+body {
+  background-color: rgb(151, 151, 151);
+  font-family: "Roboto", sans-serif;
+}
+
+main {
+  border: solid 8px black;
+  border-radius: 10px;
+  width: 400px;
+  height: 500px;
+  margin: 50px auto;
+  padding: 10px;
+  background-color: rgb(79, 133, 135);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+h1,
+h2 {
+  text-align: center;
+  color: black;
+  font-family: "Montserrat", sans-serif;
+}
+
+h2 {
+  margin-top: 60px;
+}
+
+#logo {
+  display: block;
+  margin: 0 auto;
+  width: 90px;
+  height: 100px;
+}
+
+#form-container form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#form-container button {
+  width: 100px;
+  margin-top: 10px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+button {
+  margin-top: 20px;
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: "Roboto", sans-serif;
+}
+
+.password-container {
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.password-container input {
+  width: 70%;
+}
+
+#forgotpassword {
+  display: block;
+  width: 400px;
+  text-align: right;
+  font-size: 12px;
+  margin-top: 2px;
+  color: black;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+}
+
+#forgotpassword:hover {
+  color: #333;
+}
+
+p {
+  margin: 10px 0;
+  color: black;
+  font-family: "Roboto", sans-serif;
+}
