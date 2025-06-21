@@ -1,23 +1,63 @@
 body {
-  background-color: rgb(151, 151, 151);
-  font-family: "Roboto", sans-serif;
+  background-color: black;
+  font-family: "Inter", sans-serif;
+  color: white;
 }
 
 main {
-  border: solid 8px black;
-  border-radius: 10px;
+  position: relative;
   width: 400px;
   height: 500px;
-  margin: 50px auto;
+  margin: 80px auto;
   padding: 10px;
-  background-color: rgb(79, 133, 135);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  background-color: black;
+  color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  z-index: 0;
+}
+
+main::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 4px;
+  background: linear-gradient(
+    270deg,
+    red,
+    orange,
+    yellow,
+    green,
+    blue,
+    indigo,
+    violet,
+    red
+  );
+  background-size: 400% 400%;
+  animation: rainbow 8s linear infinite;
+  border-radius: 10px;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  z-index: -1;
+}
+
+@keyframes rainbow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 h1,
 h2 {
   text-align: center;
-  color: black;
+  color: white;
   font-family: "Montserrat", sans-serif;
 }
 
@@ -43,25 +83,40 @@ h2 {
   margin-top: 10px;
 }
 
-input {
-  width: 100%;
+input,
+select {
+  width: 300px;
   padding: 10px;
   margin: 5px 0;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
-  font-family: "Roboto", sans-serif;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
 }
 
-button {
-  margin-top: 20px;
+button,
+.button,
+#registerbutton {
+  margin-top: 40px;
   background-color: #4caf50;
   color: white;
   padding: 10px 20px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-family: "Roboto", sans-serif;
+  font-family: "Inter", sans-serif;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+#registerbutton {
+  background-color: #2196f3;
+  width: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
 }
 
 .password-container {
@@ -77,13 +132,13 @@ button {
 
 #forgotpassword {
   display: block;
-  width: 400px;
+  width: 300px;
   text-align: right;
   font-size: 12px;
   margin-top: 2px;
-  color: black;
+  color: blue;
   text-decoration: none;
-  font-family: "Roboto", sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 #forgotpassword:hover {
@@ -92,6 +147,31 @@ button {
 
 p {
   margin: 10px 0;
-  color: black;
-  font-family: "Roboto", sans-serif;
+  color: white;
+  font-family: "Inter", sans-serif;
+}
+
+select {
+  background-color: #fff;
+  color: #333;
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 20px 20px;
+}
+
+select:focus {
+  border-color: #4caf50;
+  outline: none;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+select option[disabled] {
+  color: #999;
+}
+
+h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
 }

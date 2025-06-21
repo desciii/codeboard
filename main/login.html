@@ -12,11 +12,12 @@
   />
   <body>
     <main>
+      <br />
       <h1>Welcome to Code Board</h1>
       <h2>Login to your account</h2>
 
       <div id="form-container">
-        <form action="Login.php" method="post" id="login">
+        <form action="dashboard.html" method="get" id="login">
           <input type="text" name="username" placeholder="Username" required />
 
           <input
@@ -29,7 +30,7 @@
           <button type="submit" id="loginbutton">Login</button>
           <p>or</p>
         </form>
-        <button type="submit" href="register.html">Register</button>
+        <a href="register.html" id="registerbutton" class="button">Register</a>
       </div>
     </main>
   </body>
