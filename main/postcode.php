@@ -25,11 +25,11 @@ if (!isset($_SESSION['username'])) {
     </a>
     <h1>Share Your Code</h1>
     <form action="saveposts.php" method="post">
-      <input type="text" name="title" placeholder="Title of your code" required style="width: 100%; padding: 10px; margin-bottom: 10px;" />
+      <input type="text" name="title" placeholder="Title of your code" required style="width: 96%; padding: 10px; margin-bottom: 10px;" />
 
-      <textarea name="content" placeholder="Paste your code here..." rows="10" required style="width: 100%; padding: 10px; margin-bottom: 10px; font-family: monospace;"></textarea>
+      <textarea name="content" placeholder="Paste your code here..." rows="10" required style="width: 96%; padding: 10px; margin-bottom: 10px; font-family: monospace;"></textarea>
 
-      <select name="language" required style="padding: 8px; margin-bottom: 10px;">
+      <select name="language" required style="padding: 8px; margin-bottom: 10px; width: 100%; font-family: monospace;">
         <option value="" disabled selected>Select Language</option>
         <option value="HTML">HTML</option>
         <option value="CSS">CSS</option>
@@ -38,7 +38,7 @@ if (!isset($_SESSION['username'])) {
         <option value="Python">Python</option>
       </select>
 
-      <button type="submit">Post</button>
+      <button type="submit" style="width: 100%;">Post</button>
     </form>
   </main>
 </body>
