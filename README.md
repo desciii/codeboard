@@ -52,7 +52,7 @@ User Authentication (Login & Register)
    - Start Apache & MySQL via XAMPP.
    - Open browser: `http://localhost/your-folder/pages/login.php`
 
-## Planned Features ✨
+## Planned Features 
 
 - Tagging system for posts (e.g., `#for-loop`, `#php`, `#arrays`)
 - Search by tag or keyword
