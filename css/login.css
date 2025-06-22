@@ -151,7 +151,15 @@ p {
   font-family: "Inter", sans-serif;
 }
 
-select {
+#sdob-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2 equal columns */
+  gap: 15px; /* spacing between the two */
+  margin-bottom: 15px;
+}
+
+select,
+#dob-input {
   background-color: #fff;
   color: #333;
   appearance: none;
@@ -159,6 +167,18 @@ select {
   background-repeat: no-repeat;
   background-position: right 10px center;
   background-size: 20px 20px;
+  width: 120px;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.field-group label {
+  margin-bottom: 4px;
+  font-size: 12px;
+  color: white;
 }
 
 select:focus {
@@ -174,4 +194,16 @@ select option[disabled] {
 h2 {
   font-size: 20px;
   margin-bottom: 20px;
+}
+
+#dob,
+#status {
+  width: 120px;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
 }

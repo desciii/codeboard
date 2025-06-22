@@ -67,7 +67,7 @@ body {
   border-radius: 8px;
   font-family: "Inter", sans-serif;
   transition: background 0.3s, color 0.3s;
-  width: 100px;
+  width: 110px;
 }
 
 #sidebar-links a:hover,
