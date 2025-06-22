@@ -122,8 +122,8 @@ $result = mysqli_query($conn, $query);
       .like-btn:hover { color: #ff4d4d; }
       
       .pfp {
-        width: 30px;
-        height: 30px;
+        width: 45px;
+        height: 45px;
         border-radius: 50%;
         object-fit: cover;
         margin-right: 8px;
