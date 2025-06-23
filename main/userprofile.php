@@ -190,127 +190,125 @@ $tiktok = $user['tiktok_link'] ?? '';
     }
 
 
-    @media screen and (max-width: 559px;) {
+@media screen and (max-width: 619px) and (min-width: 479px) {
+  html, body {
+    height: auto;
+    overflow-x: hidden;
+  }
 
-      html,
-      body {
-        height: auto;
-        overflow-x: hidden;
-      }
+  #container {
+    display: block;
+    height: 95vh;
+    overflow: visible;
+    padding: 10px;
+  }
 
-      #container {
-        display: block;
-        height: 95vh;
-        overflow: visible;
-        padding: 10px;
-      }
+  #sidebar {
+    display: flex;
+    width: 100%;
+    margin-bottom: 20px;
+    height: auto;
+    border-radius: 25px;
+    padding-top: 10px;
+  }
 
-      #sidebar {
-        display: flex;
-        width: 100%;
-        margin-bottom: 20px;
-        height: auto;
-        border-radius: 25px;
-      }
+  #sidebar-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+  }
 
-      #sidebar-links {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
-        width: 100%;
-        height: 100px;
-      }
+  #sidebar-links li {
+    list-style: none;
+  }
 
-      #sidebar-links li {
-        list-style: none;
-      }
+  #sidebar-links a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 48px;
+    background-color: #333;
+    border-radius: 50%;
+    color: transparent;
+    font-size: 0;
+  }
 
-      #sidebar-links a {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 40px;
-        height: 48px;
-        background-color: #333;
-        border-radius: 50%;
-        color: transparent;
-        font-size: 0;
-      }
+  #sidebar-links i {
+    font-size: 25px;
+    color: #fff;
+  }
 
-      #sidebar-links i {
-        font-size: 25px;
-        color: #fff;
-      }
+  #sidebar h1 {
+    display: none;
+  }
 
-      #sidebar h1 {
-        display: none;
-      }
+  #dashboard-link i {
+    color: #4caf50 !important;
+  }
 
-      #dashboard-link i {
-        color: #4caf50 !important;
-      }
+  #main {
+    height: calc(85vh - 120px); /* adjust if needed for your sidebar height */
+    width: 95%;
+    overflow-y: auto; /* THIS makes #main scrollable */
+  }
 
-      #main {
-        height: calc(85vh - 150px);
-        width: 95%;
-        overflow-y: auto;
-      }
+  #main h1 {
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 15px;
+  }
 
-      #main h1 {
-        font-size: 20px;
-        text-align: center;
-        margin-bottom: 15px;
-      }
+  #createpost {
+    display: inline-block;
+    width: auto;
+    padding: 8px 14px;
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
 
-      #createpost {
-        display: inline-block;
-        width: auto;
-        padding: 8px 14px;
-        font-size: 14px;
-        margin-bottom: 15px;
-      }
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
 
-      form {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-      }
+  form select,
+  form button {
+    width: 100%;
+  }
 
-      form select,
-      form button {
-        width: 100%;
-      }
+  .post {
+    padding: 12px;
+  }
 
-      .post {
-        padding: 12px;
-      }
+  .post h3 {
+    font-size: 14px;
+    line-height: 1.3;
+  }
 
-      .post h3 {
-        font-size: 14px;
-        line-height: 1.3;
-      }
+  .post pre {
+    font-size: 12px;
+  }
 
-      .post pre {
-        font-size: 12px;
-      }
+  .comment-form input {
+    width: calc(90% - 35px)!important;
+    justify-content: center;
+    margin: 0 auto;
+    align-items: center;
+  }
 
-      .comment-form input {
-        width: calc(90% - 35px) !important;
-        justify-content: center;
-        margin: 0 auto;
-        align-items: center;
-      }
+  .comment-form i {
+    display: none;
+  }
 
-      .comment-form i {
-        display: none;
-      }
-
-      #credits {
-        display: none;
-      }
-    }
+  #credits {
+    display: none;
+  }
+}
 
 @media screen and (max-width: 940px ) and (min-width: 619px) {
   #credits {

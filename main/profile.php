@@ -365,7 +365,7 @@ padding: 10px;
     }
 
     #main {
-        height: calc(85vh - 200px);
+        height: calc(85vh - 120px);
         width: 95%;
         overflow-y: auto;
     }
