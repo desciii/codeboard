@@ -20,7 +20,11 @@ if (mysqli_num_rows($userQuery) == 0) {
 
 $user = mysqli_fetch_assoc($userQuery);
 $profilePicture = $user['profile_picture'] ?? '';
-$imagePath = file_exists("../css/images/" . $profilePicture) ? "../css/images/" . $profilePicture : "../css/images/pfp.png";
+if ($profilePicture && file_exists("../css/images/" . $profilePicture)) {
+    $imagePath = "../css/images/" . $profilePicture;
+} else {
+    $imagePath = "../css/images/pfp.png";
+}
 
 $bio = $user['bio'] ?? 'No bio provided.';
 $likesQuery = mysqli_query($conn, "SELECT COUNT(*) as totalLikes FROM likes INNER JOIN posts ON likes.post_id = posts.id WHERE posts.username = '$viewedUserEscaped'");
@@ -28,10 +32,15 @@ $likesData = mysqli_fetch_assoc($likesQuery);
 $totalLikes = $likesData['totalLikes'] ?? 0;
 
 $postQuery = mysqli_query($conn, "SELECT * FROM posts WHERE username = '$viewedUserEscaped' ORDER BY created_at DESC");
+
+$github = $user['github_link'] ?? '';
+$facebook = $user['facebook_link'] ?? '';
+$tiktok = $user['tiktok_link'] ?? '';
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -41,8 +50,7 @@ $postQuery = mysqli_query($conn, "SELECT * FROM posts WHERE username = '$viewedU
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="icon" href="../css/images/logo.png" type="image/png">
   <style>
-
-        html,
+    html,
     body {
       height: 100%;
       margin: 0;
@@ -181,29 +189,31 @@ $postQuery = mysqli_query($conn, "SELECT * FROM posts WHERE username = '$viewedU
       margin-bottom: 15px;
     }
 
-    
+
     @media screen and (max-width: 599px) {
-    html, body {
+
+      html,
+      body {
         height: auto;
         overflow-x: hidden;
-    }
+      }
 
-    #container {
+      #container {
         display: block;
         height: 95vh;
         overflow: visible;
         padding: 10px;
-    }
+      }
 
-    #sidebar {
+      #sidebar {
         display: flex;
         width: 100%;
         margin-bottom: 20px;
         height: auto;
         border-radius: 25px;
-    }
+      }
 
-    #sidebar-links {
+      #sidebar-links {
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -211,13 +221,13 @@ $postQuery = mysqli_query($conn, "SELECT * FROM posts WHERE username = '$viewedU
         gap: 20px;
         width: 100%;
         height: 100px;
-    }
+      }
 
-    #sidebar-links li {
+      #sidebar-links li {
         list-style: none;
-    }
+      }
 
-    #sidebar-links a {
+      #sidebar-links a {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -227,114 +237,114 @@ $postQuery = mysqli_query($conn, "SELECT * FROM posts WHERE username = '$viewedU
         border-radius: 50%;
         color: transparent;
         font-size: 0;
-    }
+      }
 
-    #sidebar-links i {
+      #sidebar-links i {
         font-size: 25px;
         color: #fff;
-    }
+      }
 
-    #sidebar h1 {
+      #sidebar h1 {
         display: none;
-    }
+      }
 
-    #dashboard-link i {
+      #dashboard-link i {
         color: #4caf50 !important;
-    }
+      }
 
-    #main {
-        height: calc(85vh - 150px); 
+      #main {
+        height: calc(85vh - 150px);
         width: 95%;
-        overflow-y: auto; 
-    }
+        overflow-y: auto;
+      }
 
-    #main h1 {
+      #main h1 {
         font-size: 20px;
         text-align: center;
         margin-bottom: 15px;
-    }
+      }
 
-    #createpost {
+      #createpost {
         display: inline-block;
         width: auto;
         padding: 8px 14px;
         font-size: 14px;
         margin-bottom: 15px;
-    }
+      }
 
-    form {
+      form {
         display: flex;
         flex-direction: column;
         gap: 8px;
-    }
+      }
 
-    form select,
-    form button {
+      form select,
+      form button {
         width: 100%;
-    }
+      }
 
-    .post {
+      .post {
         padding: 12px;
-    }
+      }
 
-    .post h3 {
+      .post h3 {
         font-size: 14px;
         line-height: 1.3;
-    }
+      }
 
-    .post pre {
+      .post pre {
         font-size: 12px;
-    }
+      }
 
-    .comment-form input {
-        width: calc(90% - 35px)!important;
+      .comment-form input {
+        width: calc(90% - 35px) !important;
         justify-content: center;
         margin: 0 auto;
         align-items: center;
-    }
+      }
 
-    .comment-form i {
+      .comment-form i {
         display: none;
-    }
+      }
 
-    #credits {
+      #credits {
         display: none;
-    }
+      }
     }
 
     @media screen and (max-width: 1061px) {
-    #credits {
+      #credits {
         display: none;
-    }
+      }
 
-    #sidebar-links a {
+      #sidebar-links a {
         display: flex;
         align-items: center;
         margin-top: 50px;
-    }
+      }
 
-    #sidebar-links a i {
-        font-size: 40px;   
-        color: #fff;       
+      #sidebar-links a i {
+        font-size: 40px;
+        color: #fff;
         gap: 30px;
         margin: 0 auto;
         justify-content: center;
         align-items: center;
-    }
+      }
 
-    #sidebar-links a::after {
+      #sidebar-links a::after {
         content: "";
-    }
+      }
 
-    #sidebar-links a {
+      #sidebar-links a {
         color: transparent;
         font-size: 0;
-    }
+      }
 
     }
-
   </style>
 </head>
+
 <body>
   <div id="container">
     <div id="sidebar">
@@ -354,22 +364,38 @@ $postQuery = mysqli_query($conn, "SELECT * FROM posts WHERE username = '$viewedU
         <h2 style="color: #add8e6;">@<?php echo htmlspecialchars($viewedUser); ?></h2>
         <p><?php echo htmlspecialchars($bio); ?></p>
         <p>Likes: <?php echo $totalLikes; ?></p>
+
+        <div style="margin-top: 15px;">
+          <?php if ($github): ?>
+            <a href="<?php echo htmlspecialchars($github); ?>" target="_blank" style="margin-right: 20px; text-decoration: none"><i class="fa-brands fa-github"></i> GitHub</a>
+          <?php endif; ?>
+          <?php if ($facebook): ?>
+            <a href="<?php echo htmlspecialchars($facebook); ?>" target="_blank" style="margin-right: 20px; text-decoration: none"><i class="fa-brands fa-facebook"></i> Facebook</a>
+          <?php endif; ?>
+          <?php if ($tiktok): ?>
+            <a href="<?php echo htmlspecialchars($tiktok); ?>" target="_blank" style="margin-right: 20px; text-decoration: none"><i class="fa-brands fa-tiktok"></i> TikTok</a>
+          <?php endif; ?>
+        </div>
       </div>
 
-      <h3 style="color: white;">Recent Posts</h3>
-      <?php while ($post = mysqli_fetch_assoc($postQuery)): ?>
-        <div class="post">
-          <h3 style="font-size: 20px;"><?php echo htmlspecialchars($post['title']); ?></h3>
-          <br style="font-size: 14px;"><?php echo htmlspecialchars($post['language']); ?> </br>
-          <pre><?php echo htmlspecialchars($post['content']); ?></pre>
-          
-          
-          <small style="color:#777;">Posted on: <?php echo $post['created_at']; ?></small>
-        </div>
-      <?php endwhile; ?>
-    </div>
 
-    
+      <h3 style="color: white;">Recent Posts</h3>
+
+      <?php if (mysqli_num_rows($postQuery) == 0): ?>
+        <div style="color:#ccc; background:#111; padding:12px; border-radius:6px;">
+          No posts yet.
+        </div>
+      <?php else: ?>
+        <?php while ($post = mysqli_fetch_assoc($postQuery)): ?>
+          <div class="post">
+            <h3 style="font-size: 20px;"><?php echo htmlspecialchars($post['title']); ?></h3>
+            <br style="font-size: 14px;"><?php echo htmlspecialchars($post['language']); ?> </br>
+            <pre><?php echo htmlspecialchars($post['content']); ?></pre>
+            <small style="color:#777;">Posted on: <?php echo $post['created_at']; ?></small>
+          </div>
+        <?php endwhile; ?>
+      <?php endif; ?>
+    </div>
 
     <div id="credits" style="text-align:center;">
       <h1>This website is created <br>by @desciii.</h1>
@@ -384,4 +410,5 @@ $postQuery = mysqli_query($conn, "SELECT * FROM posts WHERE username = '$viewedU
     </div>
   </div>
 </body>
+
 </html>

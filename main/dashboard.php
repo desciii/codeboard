@@ -401,15 +401,17 @@ $result = mysqli_query($conn, $query);
                       $commentUser = mysqli_real_escape_string($conn, $comment['username']);
                       $commentUserQuery = mysqli_query($conn, "SELECT profile_picture FROM users WHERE username = '$commentUser' LIMIT 1");
                       $commentUserData = mysqli_fetch_assoc($commentUserQuery);
-                      $commentPfp = ($commentUserData && file_exists("../css/images/" . $commentUserData['profile_picture']))
-                        ? "../css/images/" . $commentUserData['profile_picture']
-                        : "../css/images/pfp.png";
+                      
+                      $commentPfp = "../css/images/pfp.png"; // Default first
+                      if ($commentUserData && !empty($commentUserData['profile_picture']) && file_exists("../css/images/" . $commentUserData['profile_picture'])) {
+                        $commentPfp = "../css/images/" . $commentUserData['profile_picture'];
+                      }
                     ?>
                       <div style="margin-top:5px; padding:8px; background:#111; border-radius:5px; color:#ccc; font-size:13px; display:flex; align-items:center;">
                         <img src="<?php echo $commentPfp; ?>" alt="pfp" style="width:25px; height:25px; border-radius:50%; object-fit:cover; margin-right:8px;">
                         <a href="userprofile.php?username=<?php echo urlencode($comment['username']); ?>" style="color:#4caf50; text-decoration:none; font-weight:bold;">
                           @<?php echo htmlspecialchars($comment['username']); ?>:
-                        </a> 
+                        </a>
                         <span style="margin-left:5px;"><?php echo htmlspecialchars($comment['content']); ?></span>
                       </div>
                     <?php endwhile; ?>
