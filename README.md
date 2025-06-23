@@ -4,7 +4,7 @@ A Side Project named Code Board
 
 # Code Board 🖥️
 
-A simple web-based code sharing board where users can post code snippets, share knowledge, interact with others, and manage their profiles.
+A simple web-based code sharing board where users can post code snippets, share knowledge, interact with others, and manage their profiles. A simple side project that aims to learn more knowledge on we development
 
 ## Features
 
@@ -53,7 +53,7 @@ User Authentication (Login & Register)
 
 4. **Run the Project:**
    - Start Apache & MySQL via XAMPP.
-   - Open browser: `http://localhost/your-folder/pages/login.php`
+   - Open browser: `http://localhost/your-folder/CB/main/login.php`
 
 ## Planned Features 
 
