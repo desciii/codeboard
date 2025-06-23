@@ -235,71 +235,137 @@ if (isset($_POST['update_links'])) {
         margin-right: 5px;
     }
 
+    @media screen and (max-width: 619px) {
+  html, body {
+    height: auto;
+    overflow-x: hidden;
+  }
 
-    @media screen and (max-width: 599px) {
+  #container {
+    display: block;
+    height: auto;
+    padding: 10px;
+  }
 
-    html,
-    body {
-        height: auto;
-        overflow-x: hidden;
-    }
+  #sidebar {
+    display: flex;
+    width: 100%;
+    margin-bottom: 20px;
+    height: auto;
+    border-radius: 25px;
+    height: 100px;
+  }
 
-    #container {
-        display: block;
-        height: 95vh;
-        overflow: visible;
-        padding: 10px;
-    }
+  #sidebar-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+  }
 
-    #sidebar {
-        display: flex;
-        width: 100%;
-        margin-bottom: 20px;
-        height: auto;
-        border-radius: 25px;
-    }
+  #sidebar-links li {
+    list-style: none;
+  }
 
-    #sidebar-links {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
-        width: 100%;
-        height: 100px;
-    }
+  #sidebar-links a {
+    width: 40px;
+    height: 48px;
+    background-color: #333;
+    border-radius: 50%;
+    color: transparent;
+    font-size: 0;
+  }
 
-    #sidebar-links li {
-        list-style: none;
-    }
+  #sidebar-links i {
+    font-size: 25px;
+    color: #fff;
+  }
 
-    #sidebar-links a {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 40px;
-        height: 48px;
-        background-color: #333;
-        border-radius: 50%;
-        color: transparent;
-        font-size: 0;
-    }
+  #sidebar h1 {
+    display: none;
+  }
 
-    #sidebar-links i {
-        font-size: 25px;
-        color: #fff;
-    }
+  #main {
+    width: 95%;
+    overflow-y: auto;
+  }
 
-    #sidebar h1 {
-        display: none;
-    }
+  #main h1 {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  #credits {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 619px) and (min-width: 479px) {
+
+html, body {
+height: auto;
+overflow-x: hidden;
+}
+
+#container {
+display: block;
+height: 95vh;
+overflow: visible;
+padding: 10px;
+}
+
+  #sidebar {
+    display: flex;
+    width: 100%;
+    margin-bottom: 20px;
+    height: auto;
+    border-radius: 25px;
+    padding-top: 10px;
+  }
+
+  #sidebar-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+  }
+
+  #sidebar-links li {
+    list-style: none;
+  }
+
+  #sidebar-links a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 48px;
+    background-color: #333;
+    border-radius: 50%;
+    color: transparent;
+    font-size: 0;
+  }
+
+  #sidebar-links i {
+    font-size: 25px;
+    color: #fff;
+  }
+
+  #sidebar h1 {
+    display: none;
+  }
+
 
     #dashboard-link i {
         color: #4caf50 !important;
     }
 
     #main {
-        height: calc(85vh - 150px);
+        height: calc(85vh - 200px);
         width: 95%;
         overflow-y: auto;
     }
@@ -358,36 +424,43 @@ if (isset($_POST['update_links'])) {
     }
     }
 
-    @media screen and (max-width: 1061px) {
-    #credits {
-        display: none;
-    }
+    @media screen and (max-width: 940px ) and (min-width: 619px) {
+  #credits {
+    display: none;
+  }
 
-    #sidebar-links a {
-        display: flex;
-        align-items: center;
-        margin-top: 50px;
-    }
+  #sidebar-links i {
+    font-size: 40px !important;
+    color: #fff;
+  }
 
-    #sidebar-links a i {
-        font-size: 40px;
-        color: #fff;
-        gap: 30px;
-        margin: 0 auto;
-        justify-content: center;
-        align-items: center;
-    }
+  #sidebar-links a {
+    display: flex;
+    align-items: center;
+    margin-top: 50px;
+  }
 
-    #sidebar-links a::after {
-        content: "";
-    }
+  #sidebar-links a i {
+    font-size: 30px;   
+    color: #fff;       
+    gap: 30px;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+  }
 
-    #sidebar-links a {
-        color: transparent;
-        font-size: 0;
-    }
+  #sidebar-links a::after {
+    content: "";
+  }
 
-    }
+  #sidebar-links a {
+    color: transparent;
+    font-size: 0;
+  }
+
+
+}
+
     </style>
 </head>
 

@@ -355,48 +355,48 @@ if (isset($_POST['update_links'])) {
       background-color: #e60000;
     }
 
-        .profile-container {
-            max-width: 500px;
-            margin: 40px auto;
-            background: #111;
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid #333;
-            color: #ccc;
-            text-align: center;
-        }
+    .profile-container {
+        max-width: 500px;
+        margin: 40px auto;
+        background: #111;
+        padding: 20px;
+        border-radius: 12px;
+        border: 1px solid #333;
+        color: #ccc;
+        text-align: center;
+    }
 
-        .profile-container img {
-            width: 120px;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 2px solid #4caf50;
-            margin-bottom: 10px;
-        }
+    .profile-container img {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 2px solid #4caf50;
+        margin-bottom: 10px;
+    }
 
-        .profile-container h2 {
-            color: #4caf50;
-            margin-bottom: 15px;
-        }
+    .profile-container h2 {
+        color: #4caf50;
+        margin-bottom: 15px;
+    }
 
-        .profile-container p {
-            font-size: 15px;
-            margin: 6px 0;
-        }
+    .profile-container p {
+        font-size: 15px;
+        margin: 6px 0;
+    }
 
-        .settings-section textarea {
-            width: 100%;
-            background: #1a1a1a;
-            border: 1px solid #333;
-            color: #ccc;
-            border-radius: 8px;
-            resize: vertical;
-            margin-top: 10px;
-        }
+    .settings-section textarea {
+        width: 100%;
+        background: #1a1a1a;
+        border: 1px solid #333;
+        color: #ccc;
+        border-radius: 8px;
+        resize: vertical;
+        margin-top: 10px;
+    }
 
 
-@media screen and (max-width: 559px) {
+@media screen and (max-width: 619px) and (min-width: 479px) {
   html, body {
     height: auto;
     overflow-x: hidden;
@@ -409,12 +409,13 @@ if (isset($_POST['update_links'])) {
     padding: 10px;
   }
 
-  #sidebar {
+      #sidebar {
     display: flex;
     width: 100%;
     margin-bottom: 20px;
     height: auto;
     border-radius: 25px;
+    padding-top: 10px;
   }
 
   #sidebar-links {
@@ -424,7 +425,6 @@ if (isset($_POST['update_links'])) {
     align-items: center;
     gap: 20px;
     width: 100%;
-    height: 100px;
   }
 
   #sidebar-links li {
@@ -449,8 +449,7 @@ if (isset($_POST['update_links'])) {
   }
 
   #sidebar h1 {
-    color: transparent;
-    font-size: 0;
+    display: none;
   }
 
   #dashboard-link i {
@@ -458,9 +457,9 @@ if (isset($_POST['update_links'])) {
   }
 
   #main {
-    height: calc(85vh - 150px); /* adjust if needed for your sidebar height */
+    height: calc(85vh - 200px); 
     width: 95%;
-    overflow-y: auto; /* THIS makes #main scrollable */
+    overflow-y: auto;
   }
 
   #main h1 {
@@ -525,9 +524,14 @@ if (isset($_POST['update_links'])) {
   }
 }
 
-@media screen and (max-width: 1061px) {
+@media screen and (max-width: 940px ) and (min-width: 619px) {
   #credits {
     display: none;
+  }
+
+  #sidebar-links i {
+    font-size: 40px !important;
+    color: #fff;
   }
 
   #sidebar-links a {
@@ -537,7 +541,7 @@ if (isset($_POST['update_links'])) {
   }
 
   #sidebar-links a i {
-    font-size: 40px;   
+    font-size: 30px;   
     color: #fff;       
     gap: 30px;
     margin: 0 auto;
@@ -554,14 +558,6 @@ if (isset($_POST['update_links'])) {
     font-size: 0;
   }
 
-    .settings-container {
-    display: flex;
-    width: 70%;
-    max-width: 400px;
-    margin: 0 auto;
-    justify-content: center;
-    align-items: center;
-  }
 
 }
 </style>

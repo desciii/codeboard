@@ -190,7 +190,7 @@ $tiktok = $user['tiktok_link'] ?? '';
     }
 
 
-    @media screen and (max-width: 599px) {
+    @media screen and (max-width: 559px;) {
 
       html,
       body {
@@ -312,36 +312,42 @@ $tiktok = $user['tiktok_link'] ?? '';
       }
     }
 
-    @media screen and (max-width: 1061px) {
-      #credits {
-        display: none;
-      }
+@media screen and (max-width: 940px ) and (min-width: 619px) {
+  #credits {
+    display: none;
+  }
 
-      #sidebar-links a {
-        display: flex;
-        align-items: center;
-        margin-top: 50px;
-      }
+  #sidebar-links i {
+    font-size: 40px !important;
+    color: #fff;
+  }
 
-      #sidebar-links a i {
-        font-size: 40px;
-        color: #fff;
-        gap: 30px;
-        margin: 0 auto;
-        justify-content: center;
-        align-items: center;
-      }
+  #sidebar-links a {
+    display: flex;
+    align-items: center;
+    margin-top: 50px;
+  }
 
-      #sidebar-links a::after {
-        content: "";
-      }
+  #sidebar-links a i {
+    font-size: 30px;   
+    color: #fff;       
+    gap: 30px;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+  }
 
-      #sidebar-links a {
-        color: transparent;
-        font-size: 0;
-      }
+  #sidebar-links a::after {
+    content: "";
+  }
 
-    }
+  #sidebar-links a {
+    color: transparent;
+    font-size: 0;
+  }
+
+
+}
   </style>
 </head>
 

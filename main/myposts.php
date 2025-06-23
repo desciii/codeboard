@@ -199,7 +199,7 @@ if ($profilePicture && file_exists("../css/images/" . $profilePicture)) {
       vertical-align: middle;
     }
 
-    @media screen and (max-width: 559px) {
+@media screen and (max-width: 619px) and (min-width: 479px) {
   html, body {
     height: auto;
     overflow-x: hidden;
@@ -218,6 +218,7 @@ if ($profilePicture && file_exists("../css/images/" . $profilePicture)) {
     margin-bottom: 20px;
     height: auto;
     border-radius: 25px;
+    padding-top: 10px;
   }
 
   #sidebar-links {
@@ -227,7 +228,6 @@ if ($profilePicture && file_exists("../css/images/" . $profilePicture)) {
     align-items: center;
     gap: 20px;
     width: 100%;
-    height: 100px;
   }
 
   #sidebar-links li {
@@ -252,18 +252,7 @@ if ($profilePicture && file_exists("../css/images/" . $profilePicture)) {
   }
 
   #sidebar h1 {
-    color: transparent;
-    font-size: 0;
-  }
-
-  #dashboard-link i {
-    color: #4caf50 !important;
-  }
-
-  #main {
-    height: calc(85vh - 150px); /* adjust if needed for your sidebar height */
-    width: 95%;
-    overflow-y: auto; /* THIS makes #main scrollable */
+    display: none;
   }
 
   #main h1 {
@@ -320,9 +309,14 @@ if ($profilePicture && file_exists("../css/images/" . $profilePicture)) {
   }
 }
 
-@media screen and (max-width: 1061px) {
+@media screen and (max-width: 940px ) and (min-width: 619px) {
   #credits {
     display: none;
+  }
+
+  #sidebar-links i {
+    font-size: 40px !important;
+    color: #fff;
   }
 
   #sidebar-links a {
@@ -332,7 +326,7 @@ if ($profilePicture && file_exists("../css/images/" . $profilePicture)) {
   }
 
   #sidebar-links a i {
-    font-size: 40px;   
+    font-size: 30px;   
     color: #fff;       
     gap: 30px;
     margin: 0 auto;
@@ -348,6 +342,7 @@ if ($profilePicture && file_exists("../css/images/" . $profilePicture)) {
     color: transparent;
     font-size: 0;
   }
+
 
 }
 

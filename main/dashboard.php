@@ -162,7 +162,7 @@ $result = mysqli_query($conn, $query);
       vertical-align: middle;
     }
 
-@media screen and (max-width: 599px) {
+@media screen and (max-width: 619px) and (min-width: 479px) {
   html, body {
     height: auto;
     overflow-x: hidden;
@@ -181,6 +181,7 @@ $result = mysqli_query($conn, $query);
     margin-bottom: 20px;
     height: auto;
     border-radius: 25px;
+    padding-top: 10px;
   }
 
   #sidebar-links {
@@ -190,7 +191,6 @@ $result = mysqli_query($conn, $query);
     align-items: center;
     gap: 20px;
     width: 100%;
-    height: 100px;
   }
 
   #sidebar-links li {
@@ -223,7 +223,7 @@ $result = mysqli_query($conn, $query);
   }
 
   #main {
-    height: calc(85vh - 150px); /* adjust if needed for your sidebar height */
+    height: calc(85vh - 120px); /* adjust if needed for your sidebar height */
     width: 95%;
     overflow-y: auto; /* THIS makes #main scrollable */
   }
@@ -282,9 +282,14 @@ $result = mysqli_query($conn, $query);
   }
 }
 
-@media screen and (max-width: 1061px) {
+@media screen and (max-width: 940px ) and (min-width: 619px) {
   #credits {
     display: none;
+  }
+
+  #sidebar-links i {
+    font-size: 40px !important;
+    color: #fff;
   }
 
   #sidebar-links a {
@@ -294,7 +299,7 @@ $result = mysqli_query($conn, $query);
   }
 
   #sidebar-links a i {
-    font-size: 40px;   
+    font-size: 30px;   
     color: #fff;       
     gap: 30px;
     margin: 0 auto;
@@ -310,6 +315,7 @@ $result = mysqli_query($conn, $query);
     color: transparent;
     font-size: 0;
   }
+
 
 }
 
@@ -385,7 +391,28 @@ $result = mysqli_query($conn, $query);
                 <button type="submit" name="like" class="like-btn"><i class="fa-solid fa-heart"></i> <?php echo $row['like_count']; ?> Likes</button>
               </form>
 
-              <pre><?php echo htmlspecialchars($row['content']); ?></pre>
+                <?php
+                  $codeLines = explode("\n", $row['content']);
+                  $isLong = count($codeLines) > 30;
+                  $preview = implode("\n", array_slice($codeLines, 0, 30));
+                  $full = $row['content'];
+                  $postUniqueId = 'post-' . $row['id'];
+                ?>
+
+                <pre><code id="<?php echo $postUniqueId; ?>"><?php echo htmlspecialchars($isLong ? $preview : $full); ?></code></pre>
+
+                <?php if ($isLong): ?>
+                  <button 
+                    onclick="toggleCode('<?php echo $postUniqueId; ?>', this)" 
+                    data-full="<?php echo htmlspecialchars(json_encode($full)); ?>" 
+                    data-preview="<?php echo htmlspecialchars(json_encode($preview)); ?>"
+                    data-state="collapsed"
+                    style="background:none; border:none; color:#4caf50; cursor:pointer; margin-top:5px;">
+                    See More
+                  </button>
+                <?php endif; ?>
+
+
 
               <div class="comments" style="margin-top:10px;">
                 <?php
@@ -394,28 +421,26 @@ $result = mysqli_query($conn, $query);
                 while ($comment = mysqli_fetch_assoc($commentsQuery)) :
                 ?>
                   <div class="comments" style="margin-top:10px;">
-                    <?php
-                    $postId = $row['id'];
-                    $commentsQuery = mysqli_query($conn, "SELECT * FROM comments WHERE post_id = $postId ORDER BY created_at ASC");
-                    while ($comment = mysqli_fetch_assoc($commentsQuery)) :
-                      $commentUser = mysqli_real_escape_string($conn, $comment['username']);
-                      $commentUserQuery = mysqli_query($conn, "SELECT profile_picture FROM users WHERE username = '$commentUser' LIMIT 1");
-                      $commentUserData = mysqli_fetch_assoc($commentUserQuery);
-                      
-                      $commentPfp = "../css/images/pfp.png"; // Default first
-                      if ($commentUserData && !empty($commentUserData['profile_picture']) && file_exists("../css/images/" . $commentUserData['profile_picture'])) {
-                        $commentPfp = "../css/images/" . $commentUserData['profile_picture'];
-                      }
-                    ?>
-                      <div style="margin-top:5px; padding:8px; background:#111; border-radius:5px; color:#ccc; font-size:13px; display:flex; align-items:center;">
-                        <img src="<?php echo $commentPfp; ?>" alt="pfp" style="width:25px; height:25px; border-radius:50%; object-fit:cover; margin-right:8px;">
-                        <a href="userprofile.php?username=<?php echo urlencode($comment['username']); ?>" style="color:#4caf50; text-decoration:none; font-weight:bold;">
-                          @<?php echo htmlspecialchars($comment['username']); ?>:
-                        </a>
-                        <span style="margin-left:5px;"><?php echo htmlspecialchars($comment['content']); ?></span>
-                      </div>
-                    <?php endwhile; ?>
-                  </div>
+                  <?php
+                  $postId = $row['id'];
+                  $commentsQuery = mysqli_query($conn, "SELECT * FROM comments WHERE post_id = $postId ORDER BY created_at ASC");
+                  while ($comment = mysqli_fetch_assoc($commentsQuery)) :
+                    $commentUser = mysqli_real_escape_string($conn, $comment['username']);
+                    $commentUserQuery = mysqli_query($conn, "SELECT profile_picture FROM users WHERE username = '$commentUser' LIMIT 1");
+                    $commentUserData = mysqli_fetch_assoc($commentUserQuery);
+                    $commentPfp = (isset($commentUserData['profile_picture']) && file_exists("../css/images/" . $commentUserData['profile_picture']))
+                      ? "../css/images/" . $commentUserData['profile_picture']
+                      : "../css/images/pfp.png";
+                  ?>
+                    <div style="margin-top:5px; padding:8px; background:#111; border-radius:5px; color:#ccc; font-size:13px; display:flex; align-items:center;">
+                      <img src="<?php echo $commentPfp; ?>" alt="pfp" style="width:25px; height:25px; border-radius:50%; object-fit:cover; margin-right:8px;">
+                      <a href="userprofile.php?username=<?php echo urlencode($comment['username']); ?>" style="color:#4caf50; text-decoration:none; font-weight:bold;">
+                        @<?php echo htmlspecialchars($comment['username']); ?>:
+                      </a> 
+                      <span style="margin-left:5px;"><?php echo htmlspecialchars($comment['content']); ?></span>
+                    </div>
+                  <?php endwhile; ?>
+                </div>
                 <?php endwhile; ?>
               </div>
               <form method="post" class="comment-form" style="margin-top:8px;">
@@ -446,6 +471,26 @@ $result = mysqli_query($conn, $query);
       </div>
     </div> <!-- End of credits -->
   </div>
+
+  <script>
+  function toggleCode(codeId, btn) {
+    const codeEl = document.getElementById(codeId);
+    const full = JSON.parse(btn.dataset.full);
+    const preview = JSON.parse(btn.dataset.preview);
+
+    if (btn.dataset.state === "collapsed") {
+      codeEl.textContent = full; // KEEP STYLING INTACT
+      btn.dataset.state = "expanded";
+      btn.innerText = "See Less";
+    } else {
+      codeEl.textContent = preview; // KEEP STYLING INTACT
+      btn.dataset.state = "collapsed";
+      btn.innerText = "See More";
+    }
+  }
+</script>
+
+
 </body>
 
 </html>
