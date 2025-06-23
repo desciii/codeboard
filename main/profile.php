@@ -412,8 +412,8 @@ if (isset($_POST['update_links'])) {
                 <img src="<?php echo $imagePath; ?>" alt="Profile Picture">
                 <h2>@<?php echo htmlspecialchars($username); ?></h2>
 
-                <p><strong>Total Posts:</strong> <?php echo $postCount; ?></p>
-                <p><strong>Total Likes:</strong> <?php echo $likeCount; ?></p>
+                <p><strong>Posts:</strong> <?php echo $postCount; ?></p>
+                <p><strong>Likes:</strong> <?php echo $likeCount; ?></p>
 
                 <?php if ($bio): ?>
                     <p style="margin-top:15px;"><?php echo nl2br(htmlspecialchars($bio)); ?></p>

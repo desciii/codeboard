@@ -371,7 +371,10 @@ $result = mysqli_query($conn, $query);
             ?>
             <div class="post">
               <h3 style="color:#ADD8E6; font-size: 18px;">
-                <img src="<?php echo $authorPfpPath; ?>" class="pfp" alt="pfp">@<?php echo htmlspecialchars($row['username']); ?>
+                <a href="userprofile.php?username=<?php echo urlencode($row['username']); ?>" style="color:inherit; text-decoration:none;">
+                  <img src="<?php echo $authorPfpPath; ?>" class="pfp" alt="pfp">
+                  @<?php echo htmlspecialchars($row['username']); ?>
+                </a>
               </h3>
 
               <h3 style="font-size: 14px;">Title: <?php echo htmlspecialchars($row['title']); ?><br> Language: <?php echo htmlspecialchars($row['language']); ?> </h3>
