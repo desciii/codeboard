@@ -392,12 +392,29 @@ $result = mysqli_query($conn, $query);
                 $commentsQuery = mysqli_query($conn, "SELECT * FROM comments WHERE post_id = $postId ORDER BY created_at ASC");
                 while ($comment = mysqli_fetch_assoc($commentsQuery)) :
                 ?>
-                  <div style="margin-top:5px; padding:8px; background:#111; border-radius:5px; color:#ccc; font-size:13px;">
-                    <strong style="color:#4caf50;">@<?php echo htmlspecialchars($comment['username']); ?>:</strong> <?php echo htmlspecialchars($comment['content']); ?>
+                  <div class="comments" style="margin-top:10px;">
+                    <?php
+                    $postId = $row['id'];
+                    $commentsQuery = mysqli_query($conn, "SELECT * FROM comments WHERE post_id = $postId ORDER BY created_at ASC");
+                    while ($comment = mysqli_fetch_assoc($commentsQuery)) :
+                      $commentUser = mysqli_real_escape_string($conn, $comment['username']);
+                      $commentUserQuery = mysqli_query($conn, "SELECT profile_picture FROM users WHERE username = '$commentUser' LIMIT 1");
+                      $commentUserData = mysqli_fetch_assoc($commentUserQuery);
+                      $commentPfp = ($commentUserData && file_exists("../css/images/" . $commentUserData['profile_picture']))
+                        ? "../css/images/" . $commentUserData['profile_picture']
+                        : "../css/images/pfp.png";
+                    ?>
+                      <div style="margin-top:5px; padding:8px; background:#111; border-radius:5px; color:#ccc; font-size:13px; display:flex; align-items:center;">
+                        <img src="<?php echo $commentPfp; ?>" alt="pfp" style="width:25px; height:25px; border-radius:50%; object-fit:cover; margin-right:8px;">
+                        <a href="userprofile.php?username=<?php echo urlencode($comment['username']); ?>" style="color:#4caf50; text-decoration:none; font-weight:bold;">
+                          @<?php echo htmlspecialchars($comment['username']); ?>:
+                        </a> 
+                        <span style="margin-left:5px;"><?php echo htmlspecialchars($comment['content']); ?></span>
+                      </div>
+                    <?php endwhile; ?>
                   </div>
                 <?php endwhile; ?>
               </div>
-
               <form method="post" class="comment-form" style="margin-top:8px;">
                 <input type="hidden" name="post_id" value="<?php echo $postId; ?>">
                 <input type="text" name="comment_text" placeholder="Write a comment..." required
