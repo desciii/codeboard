@@ -15,7 +15,10 @@ User Authentication (Login & Register)
  Change Username & Password  
  Danger Zone: Delete Account (with posts, comments, likes)  
  Responsive & Dark Themed UI  
- Font Awesome Icons Integration  
+ Font Awesome Icons Integration
+ Profile Customization BIO's and Social Links
+ Viewing Other Profiles
+ Profile Section
  Tag System (Planned)
 
 ## Technologies Used
