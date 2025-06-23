@@ -69,6 +69,7 @@ if (isset($_POST['update_links'])) {
 
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -405,7 +406,9 @@ if (isset($_POST['update_links'])) {
         </div> <!-- End of sidebar -->
 
         <div id="main">
+            <h1>Profile</h1>
             <div class="profile-container">
+                
                 <img src="<?php echo $imagePath; ?>" alt="Profile Picture">
                 <h2>@<?php echo htmlspecialchars($username); ?></h2>
 
