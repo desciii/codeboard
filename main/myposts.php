@@ -320,7 +320,7 @@ if ($profilePicture && file_exists("../css/images/" . $profilePicture)) {
   }
 }
 
-@media screen and (max-width: 940px) {
+@media screen and (max-width: 1061px) {
   #credits {
     display: none;
   }

@@ -302,7 +302,7 @@ $postQuery = mysqli_query($conn, "SELECT * FROM posts WHERE username = '$viewedU
     }
     }
 
-    @media screen and (max-width: 940px) {
+    @media screen and (max-width: 1061px) {
     #credits {
         display: none;
     }
