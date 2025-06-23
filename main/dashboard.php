@@ -377,7 +377,8 @@ $result = mysqli_query($conn, $query);
                 </a>
               </h3>
 
-              <h3 style="font-size: 14px;">Title: <?php echo htmlspecialchars($row['title']); ?><br> Language: <?php echo htmlspecialchars($row['language']); ?> </h3>
+              <h3 style="font-size: 20px; color:#4caf50"><?php echo htmlspecialchars($row['title']); ?></h3>
+              <br style="font-size: 14px;"><?php echo htmlspecialchars($row['language']); ?></br>
 
               <form method="post" class="like-form">
                 <input type="hidden" name="post_id" value="<?php echo $row['id']; ?>">

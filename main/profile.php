@@ -410,7 +410,7 @@ if (isset($_POST['update_links'])) {
             <div class="profile-container">
                 
                 <img src="<?php echo $imagePath; ?>" alt="Profile Picture">
-                <h2>@<?php echo htmlspecialchars($username); ?></h2>
+                <h2 style="color: #add8e6;">@<?php echo htmlspecialchars($username); ?></h2>
 
                 <p><strong>Posts:</strong> <?php echo $postCount; ?></p>
                 <p><strong>Likes:</strong> <?php echo $likeCount; ?></p>

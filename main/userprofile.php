@@ -351,15 +351,16 @@ $postQuery = mysqli_query($conn, "SELECT * FROM posts WHERE username = '$viewedU
     <div id="main">
       <div class="profile-header">
         <img src="<?php echo $imagePath; ?>" alt="pfp">
-        <h2>@<?php echo htmlspecialchars($viewedUser); ?></h2>
+        <h2 style="color: #add8e6;">@<?php echo htmlspecialchars($viewedUser); ?></h2>
         <p><?php echo htmlspecialchars($bio); ?></p>
         <p>Likes: <?php echo $totalLikes; ?></p>
       </div>
 
-      <h3>Recent Posts</h3>
+      <h3 style="color: white;">Recent Posts</h3>
       <?php while ($post = mysqli_fetch_assoc($postQuery)): ?>
         <div class="post">
-          <h3 style="font-size: 14px;">Title: <?php echo htmlspecialchars($post['title']); ?><br> Language: <?php echo htmlspecialchars($post['language']); ?> </h3>
+          <h3 style="font-size: 20px;"><?php echo htmlspecialchars($post['title']); ?></h3>
+          <br style="font-size: 14px;"><?php echo htmlspecialchars($post['language']); ?> </br>
           <pre><?php echo htmlspecialchars($post['content']); ?></pre>
           
           

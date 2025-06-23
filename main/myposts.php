@@ -376,7 +376,7 @@ if ($profilePicture && file_exists("../css/images/" . $profilePicture)) {
             <h3 style="color:#ADD8E6; font-size: 18px;">
               <img src="<?php echo $imagePath; ?>" class="pfp" alt="pfp">@<?php echo htmlspecialchars($row['username']);?>
             </h3>
-            <h3 style="font-size: 14px;">Title: <?php echo htmlspecialchars($row['title']); ?></h3>
+            <h3 style="font-size: 20px; color:#4caf50;"><?php echo htmlspecialchars($row['title']); ?></h3>
 
             <form method="post" class="like-form">
               <input type="hidden" name="post_id" value="<?php echo $row['id']; ?>">
