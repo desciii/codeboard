@@ -225,8 +225,9 @@ if ($profilePicture && file_exists("../css/images/" . $profilePicture)) {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 40px;
+    gap: 20px;
     width: 100%;
+    height: 100px;
   }
 
   #sidebar-links li {
@@ -359,11 +360,12 @@ if ($profilePicture && file_exists("../css/images/" . $profilePicture)) {
       <h1>Code Board</h1>
       <ul id="sidebar-links">
         <li><a href="dashboard.php"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
+        <li><a href="profile.php"><i class="fa-solid fa-user-circle"></i> Profile</a></li>
         <li><a href="myposts.php" id="dashboard-link" style="background-color:#333; color:#fff;"><i class="fa-solid fa-file-lines"></i> My Posts</a></li>
         <li><a href="settings.php"><i class="fa-solid fa-gear"></i> Settings</a></li>
         <li><a href="login.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
       </ul>
-    </div>
+    </div> <!-- End of sidebar -->
 
     <div id="main">
       <h1>Your Posts</h1>
@@ -407,7 +409,7 @@ if ($profilePicture && file_exists("../css/images/" . $profilePicture)) {
       <?php else: ?>
         <p>No posts yet. <a href="postcode.php" style="color:#4caf50;">Post one now!</a></p>
       <?php endif; ?>
-    </div>
+    </div> <!-- End of main -->
 
     <div id="credits" style="text-align:center;">
       <h1>This website is created <br>by @desciii.</h1>
@@ -420,7 +422,7 @@ if ($profilePicture && file_exists("../css/images/" . $profilePicture)) {
         <a href=" https://www.facebook.com/marlouangelo.panungcat/" target="_blank" style="color:#4caf50; text-decoration:none; display:block;"><i class="fa-brands fa-facebook"></i> Facebook</a>
       </div>
     </div>
-  </div>
+  </div> <!-- End of container -->
 </body>
 
 </html>

@@ -32,6 +32,22 @@ if (isset($_POST['upload'])) {
   }
 }
 
+$userQuery = mysqli_query($conn, "SELECT * FROM users WHERE username = '$username' LIMIT 1");
+
+if ($userQuery && mysqli_num_rows($userQuery) > 0) {
+    $user = mysqli_fetch_assoc($userQuery);
+    $profilePicture = $user['profile_picture'] ?? null;
+    $bio = $user['bio'] ?? "";
+
+    // ✅ Add link fields here
+    $github = $user['github_link'] ?? '';
+    $facebook = $user['facebook_link'] ?? '';
+    $tiktok = $user['tiktok_link'] ?? '';
+
+    if ($profilePicture && file_exists("../css/images/" . $profilePicture)) {
+        $imagePath = "../css/images/" . $profilePicture;
+    }
+}
 
 $userQuery = mysqli_query($conn, "SELECT * FROM users WHERE username = '$username' LIMIT 1");
 $user = mysqli_fetch_assoc($userQuery);
@@ -65,6 +81,8 @@ if (isset($_GET['success'])) {
   if ($_GET['success'] == 1) echo "<div class='success-msg'>Profile picture updated!</div>";
   if ($_GET['success'] == 2) echo "<div class='success-msg'>Username updated successfully!</div>";
   if ($_GET['success'] == 3) echo "<div class='success-msg'>Password changed successfully!</div>";
+  if ($_GET['success'] == 4) echo "<div class='success-msg'>User Bio changed successfully!</div>";
+  if ($_GET['success'] == 5) echo "<div class='success-msg'>Social links changed successfully!</div>";
 }
 
 if (isset($_POST['change_password'])) {
@@ -104,6 +122,24 @@ if (isset($_POST['delete_account'])) {
 
   session_destroy();
   header("Location: login.php?deleted=1");
+  exit();
+}
+
+// Handle bio update
+if (isset($_POST['update_bio'])) {
+    $newBio = mysqli_real_escape_string($conn, $_POST['bio']);
+    mysqli_query($conn, "UPDATE users SET bio = '$newBio' WHERE username = '$username'");
+    header("Location: settings.php?success=4");
+    exit();
+}
+
+if (isset($_POST['update_links'])) {
+  $github = mysqli_real_escape_string($conn, $_POST['github']);
+  $facebook = mysqli_real_escape_string($conn, $_POST['facebook']);
+  $tiktok = mysqli_real_escape_string($conn, $_POST['tiktok']);
+
+  mysqli_query($conn, "UPDATE users SET github_link = '$github', facebook_link = '$facebook', tiktok_link = '$tiktok' WHERE username = '$username'");
+  header("Location: settings.php?success=5");
   exit();
 }
 
@@ -307,7 +343,6 @@ if (isset($_POST['delete_account'])) {
       box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
     }
 
-    /* Make the password section span both columns */
     .password-section {
       grid-column: 1 / -1;
     }
@@ -319,6 +354,47 @@ if (isset($_POST['delete_account'])) {
     .danger-zone button:hover {
       background-color: #e60000;
     }
+
+        .profile-container {
+            max-width: 500px;
+            margin: 40px auto;
+            background: #111;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #333;
+            color: #ccc;
+            text-align: center;
+        }
+
+        .profile-container img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid #4caf50;
+            margin-bottom: 10px;
+        }
+
+        .profile-container h2 {
+            color: #4caf50;
+            margin-bottom: 15px;
+        }
+
+        .profile-container p {
+            font-size: 15px;
+            margin: 6px 0;
+        }
+
+        .settings-section textarea {
+            width: 100%;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            color: #ccc;
+            border-radius: 8px;
+            resize: vertical;
+            margin-top: 10px;
+        }
+
 
 @media screen and (max-width: 559px) {
   html, body {
@@ -346,8 +422,9 @@ if (isset($_POST['delete_account'])) {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 40px;
+    gap: 20px;
     width: 100%;
+    height: 100px;
   }
 
   #sidebar-links li {
@@ -498,11 +575,12 @@ if (isset($_POST['delete_account'])) {
       <h1>Code Board</h1>
       <ul id="sidebar-links">
         <li><a href="dashboard.php"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
+        <li><a href="profile.php"><i class="fa-solid fa-user-circle"></i> Profile</a></li>
         <li><a href="myposts.php"><i class="fa-solid fa-file-lines"></i> My Posts</a></li>
         <li><a href="settings.php" style="background-color: #333; color: #fff" id="dashboard-link"><i class="fa-solid fa-gear"></i> Settings</a></li>
         <li><a href="login.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
       </ul>
-    </div>
+    </div> <!-- End of sidebar -->
 
     <div id="main">
       <h1>Settings</h1>
@@ -521,6 +599,25 @@ if (isset($_POST['delete_account'])) {
           <?php if (isset($error)) echo "<div class='error-msg'>$error</div>"; ?>
           <?php if (isset($_GET['success'])) echo "<div class='success-msg'>Profile picture updated!</div>"; ?>
         </div>
+
+        <!-- Bio and Links Section -->
+        <div class="settings-section">
+          <h3>Change Bio</h3>
+          <form method="post">
+            <textarea name="bio" rows="3" placeholder="Tell something about yourself..."><?php echo htmlspecialchars($bio); ?></textarea>
+            <button type="submit" name="update_bio"><i class="fa-solid fa-pen"></i> Update Bio</button>
+          </form>
+        </div>
+
+        <div class="settings-section">
+          <h3>Change Socail Links</h3>
+          <form method="post" style="margin-top: 15px;">
+            <input type="url" name="github" placeholder="GitHub URL" value="<?php echo htmlspecialchars($github); ?>" style="width: 90%; padding: 8px; margin-bottom: 8px; background: #1a1a1a; border: 1px solid #333; color: #ccc; border-radius: 8px;">
+            <input type="url" name="facebook" placeholder="Facebook URL" value="<?php echo htmlspecialchars($facebook); ?>" style="width: 90%; padding: 8px; margin-bottom: 8px; background: #1a1a1a; border: 1px solid #333; color: #ccc; border-radius: 8px;">
+            <input type="url" name="tiktok" placeholder="TikTok URL" value="<?php echo htmlspecialchars($tiktok); ?>" style="width: 90%; padding: 8px; margin-bottom: 8px; background: #1a1a1a; border: 1px solid #333; color: #ccc; border-radius: 8px;">
+            <button type="submit" name="update_links"><i class="fa-solid fa-floppy-disk"></i> Update Links</button>
+          </form>
+        </div>    
 
         <!-- Password Section (Second) -->
         <div class="settings-section">
@@ -555,10 +652,11 @@ if (isset($_POST['delete_account'])) {
               <i class="fa-solid fa-trash"></i> Delete Account
             </button>
           </form>
-        </div>
+        </div>   
 
       </div>
-    </div>
+    </div> <!-- End of main -->
+
     <div id="credits" style="text-align:center;">
       <h1>This website is created <br>by @desciii.</h1>
       <img src="../css/images/download (3).jpg" alt="desciii profile picture" style="width:220px; height:220px; border-radius:50%; object-fit:cover; margin-bottom:10px; border:2px solid #4caf50; margin-top:30px;">
@@ -569,8 +667,8 @@ if (isset($_POST['delete_account'])) {
         <a href="https://www.tiktok.com/@userw7go3r7op1" target="_blank" style="color:#4caf50; text-decoration:none; display:block; margin-bottom:5px;"><i class="fa-brands fa-tiktok""></i> Tiktok</a>
         <a href=" https://www.facebook.com/marlouangelo.panungcat/" target="_blank" style="color:#4caf50; text-decoration:none; display:block;"><i class="fa-brands fa-facebook"></i> Facebook</a>
       </div>
-    </div>
-  </div>
+    </div> <!-- End of credits -->
+  </div> <!-- End of container -->
 </body>
 
 </html>

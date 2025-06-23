@@ -188,7 +188,7 @@ $result = mysqli_query($conn, $query);
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 40px;
+    gap: 20px;
     width: 100%;
     height: 100px;
   }
@@ -323,11 +323,12 @@ $result = mysqli_query($conn, $query);
       <h1>Code Board</h1>
       <ul id="sidebar-links">
         <li><a href="dashboard.php" id="dashboard-link" style="background-color: #333; color: #fff"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
+        <li><a href="profile.php"><i class="fa-solid fa-user-circle"></i> Profile</a></li>
         <li><a href="myposts.php"><i class="fa-solid fa-file-lines"></i> My Posts</a></li>
         <li><a href="settings.php"><i class="fa-solid fa-gear"></i> Settings</a></li>
         <li><a href="login.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
       </ul>
-    </div>
+    </div> <!-- End of sidebar -->
 
     <div id="main">
       <h1>Dashboard - Welcome @<?php echo htmlspecialchars($username); ?></h1>
@@ -342,7 +343,6 @@ $result = mysqli_query($conn, $query);
           <option value="JavaScript">JavaScript</option>
           <option value="PHP">PHP</option>
           <option value="Python">Python</option>
-          <!-- add more languages here -->
         </select>
         <button type="submit" style="padding:5px 10px;  background-color:#4caf50; color:#fff; border:none; border-radius:5px; cursor:pointer;">Filter</button>
       </form>
@@ -409,7 +409,7 @@ $result = mysqli_query($conn, $query);
           <?php endwhile; ?>
         <?php endif; ?>
       </div>
-    </div>
+    </div> <!-- End of main -->
 
     <div id="credits" style="text-align:center;">
       <h1>This website is created <br>by @desciii.</h1>
@@ -421,7 +421,7 @@ $result = mysqli_query($conn, $query);
         <a href="https://www.tiktok.com/@userw7go3r7op1" target="_blank" style="color:#4caf50; text-decoration:none; display:block; margin-bottom:5px;"><i class="fa-brands fa-tiktok""></i> Tiktok</a>
         <a href=" https://www.facebook.com/marlouangelo.panungcat/" target="_blank" style="color:#4caf50; text-decoration:none; display:block;"><i class="fa-brands fa-facebook"></i> Facebook</a>
       </div>
-    </div>
+    </div> <!-- End of credits -->
   </div>
 </body>
 
