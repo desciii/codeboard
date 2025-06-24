@@ -423,6 +423,10 @@ $result = mysqli_query($conn, $query);
     color: transparent;
     font-size: 0;
     }
+
+    #sidebar {
+    overflow-y: auto;
+    }
     }
   </style>
 </head>

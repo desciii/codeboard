@@ -463,6 +463,10 @@ if (isset($_POST['update_links'])) {
     color: transparent;
     font-size: 0;
     }
+
+    #sidebar {
+    overflow-y: auto;
+    }
     }
 
     </style>

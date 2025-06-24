@@ -401,6 +401,10 @@ if ($profilePicture && file_exists("../css/images/" . $profilePicture)) {
     color: transparent;
     font-size: 0;
     }
+
+    #sidebar {
+    overflow-y: auto;
+    }
     }
 
     @media screen and (max-width: 412px) {

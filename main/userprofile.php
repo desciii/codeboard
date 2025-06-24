@@ -387,6 +387,10 @@ $tiktok = $user['tiktok_link'] ?? '';
     }
     }
 
+    #sidebar {
+    overflow-y: auto;
+    }
+
   </style>
 </head>
 
