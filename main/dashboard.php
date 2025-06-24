@@ -80,11 +80,15 @@ if ($tag !== '') {
             FROM posts
             WHERE language = '$filter'
             ORDER BY created_at DESC";
-} elseif ($search !== '') {
-  $query = "SELECT posts.*, (SELECT COUNT(*) FROM likes WHERE likes.post_id = posts.id) as like_count
+}  elseif ($search !== '') {
+  $query = "SELECT DISTINCT posts.*, (SELECT COUNT(*) FROM likes WHERE likes.post_id = posts.id) as like_count
             FROM posts
-            WHERE title LIKE '%$search%' OR content LIKE '%$search%'
-            ORDER BY created_at DESC";
+            LEFT JOIN post_tags pt ON posts.id = pt.post_id
+            LEFT JOIN tags t ON pt.tag_id = t.id
+            WHERE posts.title LIKE '%$search%' 
+               OR posts.content LIKE '%$search%' 
+               OR t.name LIKE '%$search%'
+            ORDER BY posts.created_at DESC";
 } else {
   $query = "SELECT posts.*, (SELECT COUNT(*) FROM likes WHERE likes.post_id = posts.id) as like_count
             FROM posts
@@ -464,8 +468,6 @@ $result = mysqli_query($conn, $query);
                   See More
                 </button>
               <?php endif; ?>
-
-
 
               <div class="comments" style="margin-top:10px;">
                 <?php

@@ -307,6 +307,12 @@ if ($profilePicture && file_exists("../css/images/" . $profilePicture)) {
   #credits {
     display: none;
   }
+
+  #yo {
+    margin-bottom: 5px;
+    width: 20%;
+  }
+  
 }
 
 @media screen and (max-width: 940px ) and (min-width: 619px) {
@@ -372,13 +378,58 @@ if ($profilePicture && file_exists("../css/images/" . $profilePicture)) {
               <img src="<?php echo $imagePath; ?>" class="pfp" alt="pfp">@<?php echo htmlspecialchars($row['username']);?>
             </h3>
             <h3 style="font-size: 20px; color:#4caf50;"><?php echo htmlspecialchars($row['title']); ?></h3>
-
+            <form method="get" action="editpost.php" style="display:inline;">
+              <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+              <button type="submit" id="yo" style="background:#4caf50; color:#fff; padding:6px 12px; border:none; border-radius:4px; cursor:pointer; margin-top:5px;">
+                <i class="fa-solid fa-pen-to-square"></i> Edit
+              </button>
+            </form>
+            <form method="post" action="deletepost.php" onsubmit="return confirm('Are you sure you want to delete this post?');" style="display:inline;">
+              <input type="hidden" name="post_id" value="<?php echo $row['id']; ?>">
+              <button type="submit" name="delete_post" id="yo" style="background:#e53935; color:#fff; padding:6px 12px; border:none; border-radius:4px; cursor:pointer;">
+                <i class="fa-solid fa-trash"></i> Delete
+              </button>
+            </form>
             <form method="post" class="like-form">
               <input type="hidden" name="post_id" value="<?php echo $row['id']; ?>">
               <button type="submit" name="like" class="like-btn"><i class="fa-solid fa-heart"></i> <?php echo $row['like_count']; ?> Likes</button>
             </form>
+            
+            <?php
+            $codeLines = explode("\n", $row['content']);
+            $isLong = count($codeLines) > 30;
+            $preview = implode("\n", array_slice($codeLines, 0, 30));
+            $full = $row['content'];
+            $postUniqueId = 'post-' . $row['id'];
+            ?>
 
-            <pre><?php echo htmlspecialchars($row['content']); ?></pre>
+            <pre><code id="<?php echo $postUniqueId; ?>"><?php echo htmlspecialchars($isLong ? $preview : $full); ?></code></pre>
+            
+            <?php
+            $postId = $row['id'];
+            $tagsQuery = mysqli_query($conn, "SELECT t.name FROM tags t 
+                                              INNER JOIN post_tags pt ON t.id = pt.tag_id
+                                              WHERE pt.post_id = $postId");
+
+            $tags = [];
+            while ($tagRow = mysqli_fetch_assoc($tagsQuery)) {
+              $tags[] = '#' . htmlspecialchars($tagRow['name']);
+            }
+            if (!empty($tags)) {
+              echo '<div style="color:#4caf50;; font-size:13px; margin-bottom:5px;">' . implode(' ', $tags) . '</div>';
+            }
+            ?>
+            
+            <?php if ($isLong): ?>
+              <button
+                onclick="toggleCode('<?php echo $postUniqueId; ?>', this)"
+                data-full="<?php echo htmlspecialchars(json_encode($full)); ?>"
+                data-preview="<?php echo htmlspecialchars(json_encode($preview)); ?>"
+                data-state="collapsed"
+                style="background:none; border:none; color:#4caf50; cursor:pointer; margin-top:5px;">
+                See More
+              </button>
+            <?php endif; ?>
 
             <div class="comments">
               <?php
@@ -386,7 +437,8 @@ if ($profilePicture && file_exists("../css/images/" . $profilePicture)) {
               $commentsQuery = mysqli_query($conn, "SELECT * FROM comments WHERE post_id = $postId ORDER BY created_at ASC");
               while ($comment = mysqli_fetch_assoc($commentsQuery)) :
               ?>
-                <div class="comment">
+
+                  <div class="comment">
                   <strong>@<?php echo htmlspecialchars($comment['username']); ?>:</strong> <?php echo htmlspecialchars($comment['content']); ?>
                 </div>
               <?php endwhile; ?>
@@ -418,6 +470,25 @@ if ($profilePicture && file_exists("../css/images/" . $profilePicture)) {
       </div>
     </div>
   </div> <!-- End of container -->
+
+  <!--See more code button-->
+  <script> 
+    function toggleCode(codeId, btn) {
+      const codeEl = document.getElementById(codeId);
+      const full = JSON.parse(btn.dataset.full);
+      const preview = JSON.parse(btn.dataset.preview);
+
+      if (btn.dataset.state === "collapsed") {
+        codeEl.textContent = full;
+        btn.dataset.state = "expanded";
+        btn.innerText = "See Less";
+      } else {
+        codeEl.textContent = preview;
+        btn.dataset.state = "collapsed";
+        btn.innerText = "See More";
+      }
+    }
+  </script>
 </body>
 
 </html>

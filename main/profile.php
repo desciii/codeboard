@@ -305,7 +305,7 @@ if (isset($_POST['update_links'])) {
 @media screen and (max-width: 619px) and (min-width: 479px) {
 
 html, body {
-height: auto;
+height: 100%;
 overflow-x: hidden;
 }
 
@@ -422,6 +422,8 @@ padding: 10px;
     #credits {
         display: none;
     }
+
+    
     }
 
     @media screen and (max-width: 940px ) and (min-width: 619px) {

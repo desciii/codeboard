@@ -395,6 +395,20 @@ $tiktok = $user['tiktok_link'] ?? '';
             <h3 style="font-size: 20px;"><?php echo htmlspecialchars($post['title']); ?></h3>
             <br style="font-size: 14px;"><?php echo htmlspecialchars($post['language']); ?> </br>
             <pre><?php echo htmlspecialchars($post['content']); ?></pre>
+              <?php
+              $postId = $post['id'];
+              $tagsQuery = mysqli_query($conn, "SELECT t.name FROM tags t
+                                                INNER JOIN post_tags pt ON t.id = pt.tag_id
+                                                WHERE pt.post_id = $postId");
+
+              $tags = [];
+              while ($tagRow = mysqli_fetch_assoc($tagsQuery)) {
+                $tags[] = '#' . htmlspecialchars($tagRow['name']);
+              }
+              if (!empty($tags)) {
+                echo '<div style="color:#ccc; font-size:13px; margin-bottom:5px;">' . implode(' ', $tags) . '</div>';
+              }
+            ?>
             <small style="color:#777;">Posted on: <?php echo $post['created_at']; ?></small>
           </div>
         <?php endwhile; ?>

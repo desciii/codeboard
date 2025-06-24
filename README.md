@@ -2,7 +2,7 @@
 
 A Side Project named Code Board
 
-# Code Board 🖥️
+# Code Board
 
 A simple web-based code sharing board where users can post code snippets, share knowledge, interact with others, and manage their profiles. A simple side project that aims to learn more knowledge on we development
 
@@ -16,10 +16,14 @@ User Authentication (Login & Register)
  Danger Zone: Delete Account (with posts, comments, likes)  
  Responsive & Dark Themed UI  
  Font Awesome Icons Integration
- Profile Customization BIO's and Social Links
- Viewing Other Profiles
- Profile Section
- Tag System (Planned)
+Profile Customization BIO's and Social Links
+Viewing Other Profiles
+Profile Section
+Tag System
+Tagging system for posts (e.g., `#for-loop`, `#php`, `#arrays`)
+Profile page view for each user
+Search by tag or keyword
+Edit / Delete Posts
 
 ## Technologies Used
 
@@ -55,12 +59,9 @@ User Authentication (Login & Register)
    - Start Apache & MySQL via XAMPP.
    - Open browser: `http://localhost/your-folder/CB/main/login.php`
 
-## Planned Features 
+## Planned Features
 
-- Tagging system for posts (e.g., `#for-loop`, `#php`, `#arrays`)
-- Search by tag or keyword
-- Edit Posts / Comments
-- Profile page view for each user
+- Edit Comments
 - Basic notifications for interactions (likes, comments)
 - Better error handling & form validation
 - Possibly using prepared statements for added security
