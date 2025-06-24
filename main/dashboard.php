@@ -112,265 +112,317 @@ $result = mysqli_query($conn, $query);
   <style>
     html,
     body {
-      height: 100%;
-      margin: 0;
-      overflow: hidden;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
     }
 
     #container {
-      display: flex;
-      height: 95vh;
-      overflow: hidden;
-      border: 3px solid #333;
-      border-radius: 12px;
-      box-sizing: border-box;
+    display: flex;
+    height: 95vh;
+    overflow: hidden;
+    border: 3px solid #333;
+    border-radius: 12px;
+    box-sizing: border-box;
     }
 
     #sidebar {
-      height: 95vh;
-      overflow-y: hidden;
-      flex-shrink: 0;
+    height: 95vh;
+    overflow-y: hidden;
+    flex-shrink: 0;
     }
 
     #main {
-      flex: 1;
-      overflow-y: auto;
-      padding-right: 10px;
-      scrollbar-width: thin;
-      scrollbar-color: #4caf50 #1a1a1a;
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: #4caf50 #1a1a1a;
     }
 
     #main::-webkit-scrollbar {
-      width: 8px;
+    width: 8px;
     }
 
     #main::-webkit-scrollbar-thumb {
-      background-color: #4caf50;
-      border-radius: 10px;
-      border: 2px solid #1a1a1a;
+    background-color: #4caf50;
+    border-radius: 10px;
+    border: 2px solid #1a1a1a;
     }
 
     #main::-webkit-scrollbar-track {
-      background-color: #1a1a1a;
+    background-color: #1a1a1a;
     }
 
     .post {
-      word-wrap: break-word;
-      overflow-wrap: break-word;
-      background: #1a1a1a;
-      padding: 15px;
-      margin-bottom: 15px;
-      border-radius: 8px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    background: #1a1a1a;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
     }
 
     .post pre {
-      white-space: pre-wrap;
-      word-break: break-word;
-      overflow-x: auto;
-      background: #0d0d0d;
-      padding: 10px;
-      border-radius: 5px;
-      color: #ccc;
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-x: auto;
+    background: #0d0d0d;
+    padding: 10px;
+    border-radius: 5px;
+    color: #ccc;
     }
 
     .like-form {
-      margin-top: 8px;
+    margin-top: 8px;
     }
 
     .like-btn {
-      background: none;
-      border: none;
-      color: #ccc;
-      cursor: pointer;
-      font-size: 14px;
+    background: none;
+    border: none;
+    color: #ccc;
+    cursor: pointer;
+    font-size: 14px;
     }
 
     .like-btn:hover {
-      color: #ff4d4d;
+    color: #ff4d4d;
     }
 
     .pfp {
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-right: 8px;
-      vertical-align: middle;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 8px;
+    vertical-align: middle;
     }
 
-    @media screen and (max-width: 619px) and (min-width: 479px) {
-
-      html,
-      body {
-        height: auto;
-        overflow-x: hidden;
-      }
-
-      #container {
-        display: block;
-        height: 95vh;
-        overflow: visible;
-        padding: 10px;
-      }
-
-      #sidebar {
-        display: flex;
-        width: 100%;
-        margin-bottom: 20px;
-        height: auto;
-        border-radius: 25px;
-        padding-top: 10px;
-      }
-
-      #sidebar-links {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
-        width: 100%;
-      }
-
-      #sidebar-links li {
-        list-style: none;
-      }
-
-      #sidebar-links a {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 40px;
-        height: 48px;
-        background-color: #333;
-        border-radius: 50%;
-        color: transparent;
-        font-size: 0;
-      }
-
-      #sidebar-links i {
-        font-size: 25px;
-        color: #fff;
-      }
-
-      #sidebar h1 {
-        display: none;
-      }
-
-      #dashboard-link i {
-        color: #4caf50 !important;
-      }
-
-      #main {
-        height: calc(85vh - 120px);
-        /* adjust if needed for your sidebar height */
-        width: 95%;
-        overflow-y: auto;
-        /* THIS makes #main scrollable */
-      }
-
-      #main h1 {
-        font-size: 20px;
-        text-align: center;
-        margin-bottom: 15px;
-      }
-
-      #createpost {
-        display: inline-block;
-        width: 150px;
-        padding: 8px 14px;
-        font-size: 14px;
-        margin-bottom: 15px;
-      }
-
-      form {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-      }
-
-      form select,
-      form button {
-        width: 100%;
-      }
-
-      .post {
-        padding: 12px;
-      }
-
-      .post h3 {
-        font-size: 14px;
-        line-height: 1.3;
-      }
-
-      .post pre {
-        font-size: 12px;
-      }
-
-      .comment-form input {
-        width: calc(90% - 35px) !important;
-        justify-content: center;
-        margin: 0 auto;
-        align-items: center;
-      }
-
-      .comment-form i {
-        display: none;
-      }
-
-      #credits {
-        display: none;
-      }
-
-      #filterForm {
-        width: 150px !important;
-      }
-
-      #search {
-        width: 132px !important;
-      }
-
-      #createpost {
-        width: 120px !important;
-        ;
-      }
-
+    @media screen and (max-width: 619px) {
+    html,
+    body {
+    height: auto;
+    overflow-x: hidden;
     }
 
-    @media screen and (max-width: 940px) and (min-width: 619px) {
-      #credits {
-        display: none;
-      }
+    #container {
+    display: block;
+    height: 95vh;
+    overflow: visible;
+    padding: 5px;
+    margin: 0;
+    box-sizing: border-box;
+    }
 
-      #sidebar-links i {
-        font-size: 40px !important;
-        color: #fff;
-      }
+    #sidebar {
+    display: flex;
+    width: 100%;
+    max-width: 100%; 
+    margin-bottom: 15px;
+    height: auto;
+    border-radius: 10px;
+    padding: 8px 5px;
+    box-sizing: border-box;
+    overflow: hidden;
+    }
 
-      #sidebar-links a {
-        display: flex;
-        align-items: center;
-        margin-top: 50px;
-      }
+    #sidebar-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly; 
+    align-items: center;
+    width: 100%;
+    margin: 0;
+    list-style: none;
+    box-sizing: border-box;
+    }
 
-      #sidebar-links a i {
-        font-size: 30px;
-        color: #fff;
-        gap: 30px;
-        margin: 0 auto;
-        justify-content: center;
-        align-items: center;
-      }
+    #sidebar-links li {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    }
 
-      #sidebar-links a::after {
-        content: "";
-      }
+    #sidebar-links a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px; 
+    height: 60px; 
+    background-color: #333;
+    border-radius: 15%;
+    color: transparent;
+    font-size: 0;
+    box-sizing: border-box;
+    }
 
-      #sidebar-links a {
-        color: transparent;
-        font-size: 0;
-      }
+    #sidebar-links i {
+    font-size: 26px; 
+    color: #fff;
+    }
 
+    #sidebar h1 {
+    display: none;
+    }
 
+    #dashboard-link i {
+    color: #4caf50 !important;
+    }
+
+    #main {
+    height: calc(95vh - 120px); 
+    width: 98%;
+    max-width: 98%;
+    overflow-y: auto;
+    overflow-x: hidden; 
+    padding: 0 5px;
+    box-sizing: border-box;
+    }
+
+    #main h1 {
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 15px;
+    }
+
+    #createpost {
+    display: inline-block;
+    width: 120px;
+    padding: 8px 12px;
+    font-size: 13px;
+    margin-bottom: 15px;
+    }
+
+    form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    }
+
+    form select,
+    form button {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    }
+
+    #search {
+    width: 100% !important; 
+    max-width: 200px;
+    box-sizing: border-box;
+    }
+
+    #filterForm {
+    width: 100% !important;
+    max-width: 150px;
+    }
+
+    .post {
+    padding: 12px;
+    margin-bottom: 15px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+    box-sizing: border-box;
+    }
+
+    .post h3 {
+    font-size: 14px;
+    line-height: 1.3;
+    }
+
+    .post pre {
+    font-size: 12px;
+    overflow-x: auto;
+    max-width: 100%;
+    }
+
+    .comment-form {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    }
+
+    .comment-form input {
+    flex: 1;
+    width: auto !important;
+    min-width: 0; 
+    box-sizing: border-box;
+    }
+
+    .comment-form button {
+    flex-shrink: 0;
+    width: auto;
+    }
+
+    .comment-form i {
+    display: inline; 
+    }
+
+    #credits {
+    display: none;
+    }
+    }
+
+    @media screen and (max-width: 412px) {
+    #container {
+    padding: 2px;
+    }
+
+    #sidebar {
+    padding: 5px 2px;
+    }
+
+    #sidebar-links a {
+    width: 45px;
+    height: 45px;
+    }
+
+    #sidebar-links i {
+    font-size: 24px;
+    }
+
+    #createpost {
+    width: 100px;
+    font-size: 12px;
+    }
+    }
+
+    @media screen and (max-width: 1025px) and (min-width: 619px) {
+    #credits {
+    display: none;
+    }
+
+    #sidebar-links i {
+    font-size: 40px !important;
+    color: #fff;
+    }
+
+    #sidebar-links a {
+    display: flex;
+    align-items: center;
+    margin-top: 50px;
+    }
+
+    #sidebar-links a i {
+    font-size: 30px;
+    color: #fff;
+    gap: 30px;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    }
+
+    #sidebar-links a::after {
+    content: "";
+    }
+
+    #sidebar-links a {
+    color: transparent;
+    font-size: 0;
+    }
     }
   </style>
 </head>
@@ -395,12 +447,12 @@ $result = mysqli_query($conn, $query);
       </a>
       <form method="get">
         <input type="text" name="search" id="search" placeholder="Search"
-          style="width: 30%; padding: 8px; border-radius: 5px; border: 1px solid #333; background: #1a1a1a; color: #fff; margin-top: 10px;">
+          style="width: 140px !important; padding: 8px; border-radius: 5px; border: 1px solid #333; background: #1a1a1a; color: #fff; margin-top: 10px;">
       </form>
       <br>
       <form method="get" id="filterForm" style="margin-bottom: 20px;">
         <select name="language" id="language" onchange="document.getElementById('filterForm').submit();"
-          style="padding:5px; border-radius:5px; background:#1a1a1a; color:#fff; border:1px solid #333;">
+          style="padding:5px; border-radius:5px; background:#1a1a1a; color:#fff; border:1px solid #333; width: 140px;">
           <option value="">All Languages</option>
           <option value="HTML">HTML</option>
           <option value="CSS">CSS</option>

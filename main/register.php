@@ -43,11 +43,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@400;500&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="icon" href="../css/images/logo.png" type="image/png">
   </head>
   <body>
     <main>
-      <a href="login.php" style="text-decoration: none; color: blue; font-size: 13px">Go back to login</a>
+      <a href="login.php" style="text-decoration: none; color: blue; font-size: 13px" class="fa-solid fa-arrow-left-long"></a>
       <br />
       <h1>Welcome to Code Board</h1>
       <h2>Let's start with your registration</h2>

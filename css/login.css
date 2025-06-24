@@ -2,6 +2,8 @@ body {
   background-color: black;
   font-family: "Inter", sans-serif;
   color: white;
+  margin: 0;
+  padding: 0;
 }
 
 main {
@@ -38,6 +40,7 @@ main::before {
   border-radius: 10px;
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask-composite: exclude;
   z-index: -1;
 }
@@ -63,6 +66,8 @@ h2 {
 
 h2 {
   margin-top: 60px;
+  font-size: 20px;
+  margin-bottom: 20px;
 }
 
 #logo {
@@ -153,8 +158,8 @@ p {
 
 #sdob-container {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* 2 equal columns */
-  gap: 15px; /* spacing between the two */
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
   margin-bottom: 15px;
 }
 
@@ -191,11 +196,6 @@ select option[disabled] {
   color: #999;
 }
 
-h2 {
-  font-size: 20px;
-  margin-bottom: 20px;
-}
-
 #dob,
 #status {
   width: 120px;
@@ -206,4 +206,190 @@ h2 {
   box-sizing: border-box;
   font-family: "Inter", sans-serif;
   font-size: 14px;
+}
+
+/* Mobile Responsive Styles */
+@media screen and (max-width: 480px) {
+  body {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  main {
+    width: calc(100vw - 40px);
+    max-width: 320px;
+    height: auto;
+    min-height: 450px;
+    margin: 0 auto;
+    padding: 20px 15px;
+    position: relative;
+  }
+
+  main::before {
+    inset: 0;
+    padding: 2px;
+    border-radius: 10px;
+  }
+
+  h1 {
+    font-size: 20px;
+    margin: 10px 0;
+  }
+
+  h2 {
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+  }
+
+  input,
+  select {
+    width: calc(100% - 20px);
+    max-width: 280px;
+    padding: 12px 10px;
+    font-size: 16px;
+  }
+
+  #forgotpassword {
+    width: calc(100% - 20px);
+    max-width: 280px;
+    font-size: 12px;
+  }
+
+  .password-container {
+    width: calc(100% - 20px);
+    max-width: 280px;
+  }
+
+  .password-container input {
+    width: calc(70% - 10px);
+  }
+
+  button,
+  .button,
+  #registerbutton {
+    padding: 12px 20px;
+    font-size: 14px;
+    margin-top: 20px;
+  }
+
+  #form-container button {
+    width: 100px;
+    margin-top: 15px;
+  }
+
+  #registerbutton {
+    width: 80px;
+    margin-top: 20px;
+  }
+
+  #sdob-container {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  select,
+  #dob-input,
+  #dob,
+  #status {
+    width: calc(100% - 20px);
+    max-width: 280px;
+  }
+
+  #logo {
+    width: 70px;
+    height: 80px;
+  }
+
+  #popup {
+    top: 10px !important;
+    right: 10px !important;
+    left: 10px !important;
+    width: auto !important;
+    max-width: calc(100vw - 40px) !important;
+    font-size: 14px !important;
+  }
+}
+
+/* Tablet styles */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  main {
+    width: 380px;
+    margin: 40px auto;
+  }
+
+  input,
+  select {
+    width: 280px;
+  }
+
+  #forgotpassword {
+    width: 280px;
+  }
+
+  .password-container {
+    width: 280px;
+  }
+}
+
+/* Small mobile devices */
+@media screen and (max-width: 320px) {
+  body {
+    padding: 0;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  main {
+    width: calc(100vw - 30px);
+    max-width: 290px;
+    margin: 0 auto;
+    padding: 15px 10px;
+  }
+
+  main::before {
+    padding: 2px;
+  }
+
+  h1 {
+    font-size: 18px;
+  }
+
+  h2 {
+    font-size: 14px;
+  }
+
+  input,
+  select {
+    width: calc(100% - 20px);
+    max-width: 260px;
+  }
+
+  #forgotpassword {
+    width: calc(100% - 20px);
+    max-width: 260px;
+  }
+
+  .password-container {
+    width: calc(100% - 20px);
+    max-width: 260px;
+  }
+
+  select,
+  #dob-input,
+  #dob,
+  #status {
+    width: calc(100% - 20px);
+    max-width: 260px;
+  }
 }

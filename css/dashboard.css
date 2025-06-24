@@ -27,7 +27,7 @@ body {
   border-top: 3px solid #1f1818;
   border-bottom: 3px solid #1f1818;
   border-left: 3px solid #1f1818;
-  border-right: none;
+  border-right: 3px solid #1f1818;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
   box-sizing: border-box;
@@ -119,7 +119,7 @@ img {
   width: 15px;
 }
 
-@media screen and (max-width: 619px) and (min-width: 479px) {
+@media screen and (max-width: 619px) {
   html,
   body {
     height: auto;

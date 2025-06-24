@@ -72,18 +72,13 @@ $tagsString = implode(', ', $tagNames);
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Edit Post</title>
   <link rel="stylesheet" href="../css/postcode.css" />
   <link rel="icon" href="../css/images/logo.png" type="image/png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-</head>
-<style>
-    html, body {
-        overflow: hidden;
-        height: 100%;
-    }
-
+  <style>
     #content::-webkit-scrollbar {
       width: 8px;
     }
@@ -105,20 +100,22 @@ $tagsString = implode(', ', $tagNames);
       scrollbar-width: thin;
       scrollbar-color: #4caf50 #1a1a1a;
     }
-
-</style>
+  </style>
+</head>
 <body>
   <main>
-    <a href="myposts.php" class="back-link" style="color: #fff; text-decoration: none;">
-    <i class="fa-solid fa-xmark"></i>
+    <a href="myposts.php" style="color: white; text-decoration: none;">
+        <i class="fas fa-times" style="font-size: 20px; cursor: pointer;"></i>
     </a>
-    <h2>Edit Your Post</h2>
+    <h1>Edit Your Post</h1>
     <form method="POST">
-      <label for="title">Title:</label  style="width: 96%; padding: 10px; margin-bottom: 10px;">
-      <input type="text" name="title" id="title" value="<?php echo htmlspecialchars($post['title']); ?>" required>
+      <input type="text" name="title" id="title" value="<?php echo htmlspecialchars($post['title']); ?>" required style="width: 96%; padding: 10px; margin-bottom: 10px;" />
 
-      <label for="language">Language:</label>
-      <select name="language" id="language" required  style="padding: 8px; margin-bottom: 10px; width: 100%; font-family: monospace;">
+      <textarea name="content" id="content" rows="10" required style="width: 96%; padding: 10px; margin-bottom: 10px; font-family: monospace;"><?php echo htmlspecialchars($post['content']); ?></textarea>
+
+      <input type="text" name="tags" id="tags" value="<?php echo htmlspecialchars($tagsString); ?>" placeholder="Add tags separated by commas, e.g., php, html" style="width: 96%; padding: 10px; margin-bottom: 10px;"/>
+
+      <select name="language" id="language" required style="padding: 8px; margin-bottom: 10px; width: 100%; font-family: monospace;">
         <option value="HTML" <?php if($post['language'] == 'HTML') echo 'selected'; ?>>HTML</option>
         <option value="CSS" <?php if($post['language'] == 'CSS') echo 'selected'; ?>>CSS</option>
         <option value="JavaScript" <?php if($post['language'] == 'JavaScript') echo 'selected'; ?>>JavaScript</option>
@@ -126,14 +123,8 @@ $tagsString = implode(', ', $tagNames);
         <option value="Python" <?php if($post['language'] == 'Python') echo 'selected'; ?>>Python</option>
       </select>
 
-      <label for="content">Code:</label>
-      <textarea name="content" id="content" rows="10" required><?php echo htmlspecialchars($post['content']); ?></textarea>
-
-      <label for="tags">Tags (comma separated):</label>
-      <input type="text" name="tags" id="tags" value="<?php echo htmlspecialchars($tagsString); ?>">
-
-      <button type="submit">Update Post</button>
+      <button type="submit" style="width: 100%;">Update Post</button>
     </form>
-</main>
+  </main>
 </body>
 </html>

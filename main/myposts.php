@@ -72,287 +72,362 @@ if ($profilePicture && file_exists("../css/images/" . $profilePicture)) {
   <style>
     html,
     body {
-      height: 100%;
-      margin: 0;
-      overflow: hidden;
-      /* Prevent scrolling on body */
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
     }
 
     #container {
-      display: flex;
-      height: 95vh;
-      overflow: hidden;
-      border: 3px solid #333;
-      border-radius: 12px;
-      box-sizing: border-box;
+    display: flex;
+    height: 95vh;
+    overflow: hidden;
+    border: 3px solid #333;
+    border-radius: 12px;
+    box-sizing: border-box;
     }
 
     #sidebar {
-      height: 95vh;
-      /* Sidebar fixed full height */
-      overflow-y: hidden;
-      /* No scroll here */
-      flex-shrink: 0;
+    height: 95vh;
+
+    overflow-y: hidden;
+ 
+    flex-shrink: 0;
     }
 
     #main {
-      flex: 1;
-      overflow-y: auto;
-      /* ✅ Only MAIN scrolls vertically */
-      padding-right: 10px;
-      scrollbar-width: thin;
-      scrollbar-color: #4caf50 #1a1a1a;
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: #4caf50 #1a1a1a;
     }
 
     #main::-webkit-scrollbar {
-      width: 8px;
+    width: 8px;
     }
 
     #main::-webkit-scrollbar-thumb {
-      background-color: #4caf50;
-      border-radius: 10px;
-      border: 2px solid #1a1a1a;
+    background-color: #4caf50;
+    border-radius: 10px;
+    border: 2px solid #1a1a1a;
     }
 
     #main::-webkit-scrollbar-track {
-      background-color: #1a1a1a;
+    background-color: #1a1a1a;
     }
 
     .post {
-      background: #1a1a1a;
-      padding: 15px;
-      margin-bottom: 15px;
-      border-radius: 8px;
-      overflow-wrap: break-word;
-      word-break: break-word;
+    background: #1a1a1a;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    overflow-wrap: break-word;
+    word-break: break-word;
     }
 
     .post pre {
-      background: #0d0d0d;
-      padding: 10px;
-      border-radius: 5px;
-      color: #ccc;
-      white-space: pre-wrap;
-      word-break: break-word;
+    background: #0d0d0d;
+    padding: 10px;
+    border-radius: 5px;
+    color: #ccc;
+    white-space: pre-wrap;
+    word-break: break-word;
     }
 
     .like-form {
-      margin-top: 8px;
+    margin-top: 8px;
     }
 
     .like-btn {
-      background: none;
-      border: none;
-      color: #ccc;
-      cursor: pointer;
-      font-size: 14px;
+    background: none;
+    border: none;
+    color: #ccc;
+    cursor: pointer;
+    font-size: 14px;
     }
 
     .like-btn:hover {
-      color: #ff4d4d;
+    color: #ff4d4d;
     }
 
     .comment {
-      margin-top: 5px;
-      padding: 8px;
-      background: #111;
-      border-radius: 5px;
-      color: #ccc;
-      font-size: 13px;
+    margin-top: 5px;
+    padding: 8px;
+    background: #111;
+    border-radius: 5px;
+    color: #ccc;
+    font-size: 13px;
     }
 
     .comment strong {
-      color: #4caf50;
+    color: #4caf50;
     }
 
     .comment-form {
-      margin-top: 8px;
+    margin-top: 8px;
     }
 
     .comment-form input[type="text"] {
-      width: 92%;
-      padding: 6px;
-      border-radius: 5px;
-      border: 1px solid #333;
-      background: #1a1a1a;
-      color: #fff;
+    width: 92%;
+    padding: 6px;
+    border-radius: 5px;
+    border: 1px solid #333;
+    background: #1a1a1a;
+    color: #fff;
     }
 
     .comment-form button {
-      background: none;
-      border: none;
-      color: #4caf50;
-      cursor: pointer;
-      margin-left: 5px;
+    background: none;
+    border: none;
+    color: #4caf50;
+    cursor: pointer;
+    margin-left: 5px;
     }
 
     .comment-form button:hover {
-      color: #63e276;
+    color: #63e276;
     }
 
     .pfp {
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-right: 8px;
-      vertical-align: middle;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 8px;
+    vertical-align: middle;
     }
 
-@media screen and (max-width: 619px) and (min-width: 479px) {
-  html, body {
-    height: auto;
-    overflow-x: hidden;
-  }
+    @media screen and (max-width: 360px) {
+    #container {
+    padding: 2px;
+    }
 
-  #container {
+    #sidebar {
+    padding: 5px 2px;
+    }
+
+    #sidebar-links {
+    padding: 0 5px; 
+    }
+
+    #sidebar-links a {
+    width: 45px;
+    height: 45px;
+    }
+
+    #sidebar-links i {
+    font-size: 24px; 
+    }
+
+    #createpost {
+    width: 100px;
+    font-size: 12px;
+    }
+    }
+
+    @media screen and (max-width: 619px) {
+    html,
+    body {
+    height: auto;
+    overflow-x: hidden; 
+    }
+
+    #container {
     display: block;
     height: 95vh;
     overflow: visible;
-    padding: 10px;
-  }
+    padding: 5px;
+    margin: 0;
+    box-sizing: border-box;
+    }
 
-  #sidebar {
+    #sidebar {
     display: flex;
     width: 100%;
-    margin-bottom: 20px;
+    max-width: 100%;
+    margin-bottom: 15px; 
     height: auto;
-    border-radius: 25px;
-    padding-top: 10px;
-  }
+    border-radius: 10px;
+    padding: 8px 5px; 
+    box-sizing: border-box;
+    overflow: hidden; 
+    }
 
-  #sidebar-links {
+    #sidebar-links {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-evenly; 
     align-items: center;
-    gap: 20px;
     width: 100%;
-  }
-
-  #sidebar-links li {
+    margin: 0;
     list-style: none;
-  }
+    box-sizing: border-box;
+    }
 
-  #sidebar-links a {
+    #sidebar-links li {
+    list-style: none;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 40px;
-    height: 48px;
+    margin: 0 auto;
+    }
+
+    #sidebar-links a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px; 
     background-color: #333;
-    border-radius: 50%;
+    border-radius: 15%;
     color: transparent;
     font-size: 0;
-  }
+    box-sizing: border-box;
+    }
 
-  #sidebar-links i {
-    font-size: 25px;
+    #sidebar-links i {
+    font-size: 26px; 
     color: #fff;
-  }
+    }
 
-  #sidebar h1 {
+    #sidebar h1 {
     display: none;
-  }
+    }
 
-  #main h1 {
-    font-size: 20px;
+    #dashboard-link i {
+    color: #4caf50 !important;
+    }
+
+    #main {
+    height: calc(95vh - 120px); 
+    width: 98%;
+    max-width: 98%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0 5px;
+    box-sizing: border-box;
+    }
+
+    #main h1 {
+    font-size: 18px; 
     text-align: center;
     margin-bottom: 15px;
-  }
+    }
 
-  #createpost {
+    #createpost {
     display: inline-block;
     width: auto;
     padding: 8px 14px;
     font-size: 14px;
     margin-bottom: 15px;
-  }
+    }
 
-  form {
+    form {
     display: flex;
     flex-direction: column;
     gap: 8px;
-  }
+    }
 
-  form select,
-  form button {
+    form select,
+    form button {
     width: 100%;
-  }
+    }
 
-  .post {
+    .post {
     padding: 12px;
-  }
+    }
 
-  .post h3 {
+    .post h3 {
     font-size: 14px;
     line-height: 1.3;
-  }
+    }
 
-  .post pre {
+    .post pre {
     font-size: 12px;
-  }
+    }
 
-  .comment-form input {
+    .comment-form input {
     width: calc(90% - 35px)!important;
     justify-content: center;
     margin: 0 auto;
     align-items: center;
-  }
+    }
 
-  .comment-form i {
+    .comment-form i {
     display: none;
-  }
+    }
 
-  #credits {
+    #credits {
     display: none;
-  }
+    }
 
-  #yo {
+    #yo {
     margin-bottom: 5px;
     width: 20%;
-  }
-  
-}
+    }
 
-@media screen and (max-width: 940px ) and (min-width: 619px) {
-  #credits {
+    }
+
+    @media screen and (max-width: 1025px ) and (min-width: 619px) {
+    #credits {
     display: none;
-  }
+    }
 
-  #sidebar-links i {
+    #sidebar-links i {
     font-size: 40px !important;
     color: #fff;
-  }
+    }
 
-  #sidebar-links a {
+    #sidebar-links a {
     display: flex;
     align-items: center;
     margin-top: 50px;
-  }
+    }
 
-  #sidebar-links a i {
+    #sidebar-links a i {
     font-size: 30px;   
     color: #fff;       
     gap: 30px;
     margin: 0 auto;
     justify-content: center;
     align-items: center;
-  }
+    }
 
-  #sidebar-links a::after {
+    #sidebar-links a::after {
     content: "";
-  }
+    }
 
-  #sidebar-links a {
+    #sidebar-links a {
     color: transparent;
     font-size: 0;
-  }
+    }
+    }
 
+    @media screen and (max-width: 412px) {
+    #container {
+    padding: 2px;
+    }
 
-}
+    #sidebar {
+    padding: 5px 2px;
+    }
 
-  </style>
+    #sidebar-links a {
+    width: 45px;
+    height: 45px;
+    }
+
+    #sidebar-links i {
+    font-size: 24px;
+    }
+
+    #createpost {
+    width: 100px;
+    font-size: 12px;
+    }
+    }
+
+</style>
 </head>
 
 <body>
@@ -380,13 +455,13 @@ if ($profilePicture && file_exists("../css/images/" . $profilePicture)) {
             <h3 style="font-size: 20px; color:#4caf50;"><?php echo htmlspecialchars($row['title']); ?></h3>
             <form method="get" action="editpost.php" style="display:inline;">
               <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
-              <button type="submit" id="yo" style="background:#4caf50; color:#fff; padding:6px 12px; border:none; border-radius:4px; cursor:pointer; margin-top:5px;">
+              <button type="submit" id="yo" style="background:#4caf50; color:#fff; padding:0px 12px; border:none; border-radius:4px; cursor:pointer; margin-top:5px; height: 40px;">
                 <i class="fa-solid fa-pen-to-square"></i> Edit
               </button>
             </form>
             <form method="post" action="deletepost.php" onsubmit="return confirm('Are you sure you want to delete this post?');" style="display:inline;">
               <input type="hidden" name="post_id" value="<?php echo $row['id']; ?>">
-              <button type="submit" name="delete_post" id="yo" style="background:#e53935; color:#fff; padding:6px 12px; border:none; border-radius:4px; cursor:pointer;">
+              <button type="submit" name="delete_post" id="yo" style="background:#e53935; color:#fff; padding:-3px 12px; border:none; border-radius:4px; cursor:pointer; height: 40px;">
                 <i class="fa-solid fa-trash"></i> Delete
               </button>
             </form>
