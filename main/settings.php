@@ -601,7 +601,7 @@ if (isset($_POST['update_links'])) {
           <h3>Change Bio</h3>
           <form method="post">
             <textarea name="bio" rows="3" placeholder="Tell something about yourself..."><?php echo htmlspecialchars($bio); ?></textarea>
-            <button type="submit" name="update_bio"><i class="fa-solid fa-pen"></i> Update Bio</button>
+            <button type="submit" name="update_bio" style="margin-top:5px;"><i class="fa-solid fa-pen"></i> Update Bio</button>
           </form>
         </div>
 

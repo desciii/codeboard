@@ -80,7 +80,7 @@ if ($tag !== '') {
             FROM posts
             WHERE language = '$filter'
             ORDER BY created_at DESC";
-}  elseif ($search !== '') {
+} elseif ($search !== '') {
   $query = "SELECT DISTINCT posts.*, (SELECT COUNT(*) FROM likes WHERE likes.post_id = posts.id) as like_count
             FROM posts
             LEFT JOIN post_tags pt ON posts.id = pt.post_id
@@ -276,7 +276,7 @@ $result = mysqli_query($conn, $query);
 
       #createpost {
         display: inline-block;
-        width: auto;
+        width: 150px;
         padding: 8px 14px;
         font-size: 14px;
         margin-bottom: 15px;
@@ -320,6 +320,20 @@ $result = mysqli_query($conn, $query);
       #credits {
         display: none;
       }
+
+      #filterForm {
+        width: 150px !important;
+      }
+
+      #search {
+        width: 132px !important;
+      }
+
+      #createpost {
+        width: 120px !important;
+        ;
+      }
+
     }
 
     @media screen and (max-width: 940px) and (min-width: 619px) {
@@ -380,19 +394,19 @@ $result = mysqli_query($conn, $query);
       <a href="postcode.php" id="createpost" style="width: 115px;"><i class="fa-solid fa-pen-to-square"></i> Post a Code
       </a>
       <form method="get">
-        <input type="text" name="search" placeholder="Search"
+        <input type="text" name="search" id="search" placeholder="Search"
           style="width: 30%; padding: 8px; border-radius: 5px; border: 1px solid #333; background: #1a1a1a; color: #fff; margin-top: 10px;">
       </form>
       <br>
       <form method="get" id="filterForm" style="margin-bottom: 20px;">
-        <select name="language" id="language" onchange="document.getElementById('filterForm').submit();" 
+        <select name="language" id="language" onchange="document.getElementById('filterForm').submit();"
           style="padding:5px; border-radius:5px; background:#1a1a1a; color:#fff; border:1px solid #333;">
-            <option value="">All Languages</option>
-            <option value="HTML">HTML</option>
-            <option value="CSS">CSS</option>
-            <option value="JavaScript">JavaScript</option>
-            <option value="PHP">PHP</option>
-            <option value="Python">Python</option>
+          <option value="">All Languages</option>
+          <option value="HTML">HTML</option>
+          <option value="CSS">CSS</option>
+          <option value="JavaScript">JavaScript</option>
+          <option value="PHP">PHP</option>
+          <option value="Python">Python</option>
         </select>
       </form>
       <div id="posts-container" style="margin-top: 20px;">
@@ -418,13 +432,13 @@ $result = mysqli_query($conn, $query);
               $authorPfpPath = "../css/images/pfp.png";
             }
             $postId = $row['id'];
-                $tagsQuery = mysqli_query($conn, "SELECT t.name FROM tags t 
+            $tagsQuery = mysqli_query($conn, "SELECT t.name FROM tags t 
                                                   INNER JOIN post_tags pt ON t.id = pt.tag_id
                                                   WHERE pt.post_id = $postId");
 
-                $tags = [];
-                while ($tagRow = mysqli_fetch_assoc($tagsQuery)) {
-                  $tags[] = '<a href="dashboard.php?tag=' . urlencode($tagRow['name']) . '" style="color:#4caf50;">#' . htmlspecialchars($tagRow['name']) . '</a>';
+            $tags = [];
+            while ($tagRow = mysqli_fetch_assoc($tagsQuery)) {
+              $tags[] = '<a href="dashboard.php?tag=' . urlencode($tagRow['name']) . '" style="color:#4caf50;">#' . htmlspecialchars($tagRow['name']) . '</a>';
             }
             ?>
             <div class="post">
@@ -528,7 +542,7 @@ $result = mysqli_query($conn, $query);
   </div>
 
   <!--See more code button-->
-  <script> 
+  <script>
     function toggleCode(codeId, btn) {
       const codeEl = document.getElementById(codeId);
       const full = JSON.parse(btn.dataset.full);
