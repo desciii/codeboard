@@ -59,8 +59,40 @@ if ($filter !== '') {
 
 $result = mysqli_query($conn, $query);
 
-?>
+$filter = isset($_GET['language']) ? mysqli_real_escape_string($conn, $_GET['language']) : '';
+$search = isset($_GET['search']) ? mysqli_real_escape_string($conn, $_GET['search']) : '';
+$tag = isset($_GET['tag']) ? mysqli_real_escape_string($conn, $_GET['tag']) : '';
 
+if ($tag !== '') {
+  $query = "SELECT posts.*, (SELECT COUNT(*) FROM likes WHERE likes.post_id = posts.id) as like_count
+            FROM posts
+            INNER JOIN post_tags pt ON posts.id = pt.post_id
+            INNER JOIN tags t ON pt.tag_id = t.id
+            WHERE t.name = '$tag'
+            ORDER BY created_at DESC";
+} elseif ($filter !== '' && $search !== '') {
+  $query = "SELECT posts.*, (SELECT COUNT(*) FROM likes WHERE likes.post_id = posts.id) as like_count
+            FROM posts
+            WHERE language = '$filter' AND (title LIKE '%$search%' OR content LIKE '%$search%')
+            ORDER BY created_at DESC";
+} elseif ($filter !== '') {
+  $query = "SELECT posts.*, (SELECT COUNT(*) FROM likes WHERE likes.post_id = posts.id) as like_count
+            FROM posts
+            WHERE language = '$filter'
+            ORDER BY created_at DESC";
+} elseif ($search !== '') {
+  $query = "SELECT posts.*, (SELECT COUNT(*) FROM likes WHERE likes.post_id = posts.id) as like_count
+            FROM posts
+            WHERE title LIKE '%$search%' OR content LIKE '%$search%'
+            ORDER BY created_at DESC";
+} else {
+  $query = "SELECT posts.*, (SELECT COUNT(*) FROM likes WHERE likes.post_id = posts.id) as like_count
+            FROM posts
+            ORDER BY created_at DESC";
+}
+
+$result = mysqli_query($conn, $query);
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -162,163 +194,166 @@ $result = mysqli_query($conn, $query);
       vertical-align: middle;
     }
 
-@media screen and (max-width: 619px) and (min-width: 479px) {
-  html, body {
-    height: auto;
-    overflow-x: hidden;
-  }
+    @media screen and (max-width: 619px) and (min-width: 479px) {
 
-  #container {
-    display: block;
-    height: 95vh;
-    overflow: visible;
-    padding: 10px;
-  }
+      html,
+      body {
+        height: auto;
+        overflow-x: hidden;
+      }
 
-  #sidebar {
-    display: flex;
-    width: 100%;
-    margin-bottom: 20px;
-    height: auto;
-    border-radius: 25px;
-    padding-top: 10px;
-  }
+      #container {
+        display: block;
+        height: 95vh;
+        overflow: visible;
+        padding: 10px;
+      }
 
-  #sidebar-links {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    width: 100%;
-  }
+      #sidebar {
+        display: flex;
+        width: 100%;
+        margin-bottom: 20px;
+        height: auto;
+        border-radius: 25px;
+        padding-top: 10px;
+      }
 
-  #sidebar-links li {
-    list-style: none;
-  }
+      #sidebar-links {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        width: 100%;
+      }
 
-  #sidebar-links a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 40px;
-    height: 48px;
-    background-color: #333;
-    border-radius: 50%;
-    color: transparent;
-    font-size: 0;
-  }
+      #sidebar-links li {
+        list-style: none;
+      }
 
-  #sidebar-links i {
-    font-size: 25px;
-    color: #fff;
-  }
+      #sidebar-links a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 48px;
+        background-color: #333;
+        border-radius: 50%;
+        color: transparent;
+        font-size: 0;
+      }
 
-  #sidebar h1 {
-    display: none;
-  }
+      #sidebar-links i {
+        font-size: 25px;
+        color: #fff;
+      }
 
-  #dashboard-link i {
-    color: #4caf50 !important;
-  }
+      #sidebar h1 {
+        display: none;
+      }
 
-  #main {
-    height: calc(85vh - 120px); /* adjust if needed for your sidebar height */
-    width: 95%;
-    overflow-y: auto; /* THIS makes #main scrollable */
-  }
+      #dashboard-link i {
+        color: #4caf50 !important;
+      }
 
-  #main h1 {
-    font-size: 20px;
-    text-align: center;
-    margin-bottom: 15px;
-  }
+      #main {
+        height: calc(85vh - 120px);
+        /* adjust if needed for your sidebar height */
+        width: 95%;
+        overflow-y: auto;
+        /* THIS makes #main scrollable */
+      }
 
-  #createpost {
-    display: inline-block;
-    width: auto;
-    padding: 8px 14px;
-    font-size: 14px;
-    margin-bottom: 15px;
-  }
+      #main h1 {
+        font-size: 20px;
+        text-align: center;
+        margin-bottom: 15px;
+      }
 
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
+      #createpost {
+        display: inline-block;
+        width: auto;
+        padding: 8px 14px;
+        font-size: 14px;
+        margin-bottom: 15px;
+      }
 
-  form select,
-  form button {
-    width: 100%;
-  }
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
 
-  .post {
-    padding: 12px;
-  }
+      form select,
+      form button {
+        width: 100%;
+      }
 
-  .post h3 {
-    font-size: 14px;
-    line-height: 1.3;
-  }
+      .post {
+        padding: 12px;
+      }
 
-  .post pre {
-    font-size: 12px;
-  }
+      .post h3 {
+        font-size: 14px;
+        line-height: 1.3;
+      }
 
-  .comment-form input {
-    width: calc(90% - 35px)!important;
-    justify-content: center;
-    margin: 0 auto;
-    align-items: center;
-  }
+      .post pre {
+        font-size: 12px;
+      }
 
-  .comment-form i {
-    display: none;
-  }
+      .comment-form input {
+        width: calc(90% - 35px) !important;
+        justify-content: center;
+        margin: 0 auto;
+        align-items: center;
+      }
 
-  #credits {
-    display: none;
-  }
-}
+      .comment-form i {
+        display: none;
+      }
 
-@media screen and (max-width: 940px ) and (min-width: 619px) {
-  #credits {
-    display: none;
-  }
+      #credits {
+        display: none;
+      }
+    }
 
-  #sidebar-links i {
-    font-size: 40px !important;
-    color: #fff;
-  }
+    @media screen and (max-width: 940px) and (min-width: 619px) {
+      #credits {
+        display: none;
+      }
 
-  #sidebar-links a {
-    display: flex;
-    align-items: center;
-    margin-top: 50px;
-  }
+      #sidebar-links i {
+        font-size: 40px !important;
+        color: #fff;
+      }
 
-  #sidebar-links a i {
-    font-size: 30px;   
-    color: #fff;       
-    gap: 30px;
-    margin: 0 auto;
-    justify-content: center;
-    align-items: center;
-  }
+      #sidebar-links a {
+        display: flex;
+        align-items: center;
+        margin-top: 50px;
+      }
 
-  #sidebar-links a::after {
-    content: "";
-  }
+      #sidebar-links a i {
+        font-size: 30px;
+        color: #fff;
+        gap: 30px;
+        margin: 0 auto;
+        justify-content: center;
+        align-items: center;
+      }
 
-  #sidebar-links a {
-    color: transparent;
-    font-size: 0;
-  }
+      #sidebar-links a::after {
+        content: "";
+      }
+
+      #sidebar-links a {
+        color: transparent;
+        font-size: 0;
+      }
 
 
-}
-
+    }
   </style>
 </head>
 
@@ -340,17 +375,21 @@ $result = mysqli_query($conn, $query);
       <h1>Dashboard - Welcome @<?php echo htmlspecialchars($username); ?></h1>
       <a href="postcode.php" id="createpost" style="width: 115px;"><i class="fa-solid fa-pen-to-square"></i> Post a Code
       </a>
+      <form method="get">
+        <input type="text" name="search" placeholder="Search"
+          style="width: 30%; padding: 8px; border-radius: 5px; border: 1px solid #333; background: #1a1a1a; color: #fff; margin-top: 10px;">
+      </form>
       <br>
-      <form method="get" style="margin-bottom: 20px;">
-        <select name="language" id="language" style="padding:5px; border-radius:5px; background:#1a1a1a; color:#fff; border:1px solid #333;">
-          <option value="">All Languages</option>
-          <option value="HTML">HTML</option>
-          <option value="CSS">CSS</option>
-          <option value="JavaScript">JavaScript</option>
-          <option value="PHP">PHP</option>
-          <option value="Python">Python</option>
+      <form method="get" id="filterForm" style="margin-bottom: 20px;">
+        <select name="language" id="language" onchange="document.getElementById('filterForm').submit();" 
+          style="padding:5px; border-radius:5px; background:#1a1a1a; color:#fff; border:1px solid #333;">
+            <option value="">All Languages</option>
+            <option value="HTML">HTML</option>
+            <option value="CSS">CSS</option>
+            <option value="JavaScript">JavaScript</option>
+            <option value="PHP">PHP</option>
+            <option value="Python">Python</option>
         </select>
-        <button type="submit" style="padding:5px 10px;  background-color:#4caf50; color:#fff; border:none; border-radius:5px; cursor:pointer;">Filter</button>
       </form>
       <div id="posts-container" style="margin-top: 20px;">
         <?php if (mysqli_num_rows($result) == 0): ?>
@@ -374,6 +413,15 @@ $result = mysqli_query($conn, $query);
             } else {
               $authorPfpPath = "../css/images/pfp.png";
             }
+            $postId = $row['id'];
+                $tagsQuery = mysqli_query($conn, "SELECT t.name FROM tags t 
+                                                  INNER JOIN post_tags pt ON t.id = pt.tag_id
+                                                  WHERE pt.post_id = $postId");
+
+                $tags = [];
+                while ($tagRow = mysqli_fetch_assoc($tagsQuery)) {
+                  $tags[] = '<a href="dashboard.php?tag=' . urlencode($tagRow['name']) . '" style="color:#4caf50;">#' . htmlspecialchars($tagRow['name']) . '</a>';
+            }
             ?>
             <div class="post">
               <h3 style="color:#ADD8E6; font-size: 18px;">
@@ -391,26 +439,31 @@ $result = mysqli_query($conn, $query);
                 <button type="submit" name="like" class="like-btn"><i class="fa-solid fa-heart"></i> <?php echo $row['like_count']; ?> Likes</button>
               </form>
 
-                <?php
-                  $codeLines = explode("\n", $row['content']);
-                  $isLong = count($codeLines) > 30;
-                  $preview = implode("\n", array_slice($codeLines, 0, 30));
-                  $full = $row['content'];
-                  $postUniqueId = 'post-' . $row['id'];
-                ?>
+              <?php
+              $codeLines = explode("\n", $row['content']);
+              $isLong = count($codeLines) > 30;
+              $preview = implode("\n", array_slice($codeLines, 0, 30));
+              $full = $row['content'];
+              $postUniqueId = 'post-' . $row['id'];
+              ?>
 
-                <pre><code id="<?php echo $postUniqueId; ?>"><?php echo htmlspecialchars($isLong ? $preview : $full); ?></code></pre>
+              <pre><code id="<?php echo $postUniqueId; ?>"><?php echo htmlspecialchars($isLong ? $preview : $full); ?></code></pre>
+              <?php if (!empty($tags)): ?>
+                <div style="margin: 5px 0;">
+                  <?php echo implode(' ', $tags); ?>
+                </div>
+              <?php endif; ?>
 
-                <?php if ($isLong): ?>
-                  <button 
-                    onclick="toggleCode('<?php echo $postUniqueId; ?>', this)" 
-                    data-full="<?php echo htmlspecialchars(json_encode($full)); ?>" 
-                    data-preview="<?php echo htmlspecialchars(json_encode($preview)); ?>"
-                    data-state="collapsed"
-                    style="background:none; border:none; color:#4caf50; cursor:pointer; margin-top:5px;">
-                    See More
-                  </button>
-                <?php endif; ?>
+              <?php if ($isLong): ?>
+                <button
+                  onclick="toggleCode('<?php echo $postUniqueId; ?>', this)"
+                  data-full="<?php echo htmlspecialchars(json_encode($full)); ?>"
+                  data-preview="<?php echo htmlspecialchars(json_encode($preview)); ?>"
+                  data-state="collapsed"
+                  style="background:none; border:none; color:#4caf50; cursor:pointer; margin-top:5px;">
+                  See More
+                </button>
+              <?php endif; ?>
 
 
 
@@ -421,26 +474,26 @@ $result = mysqli_query($conn, $query);
                 while ($comment = mysqli_fetch_assoc($commentsQuery)) :
                 ?>
                   <div class="comments" style="margin-top:10px;">
-                  <?php
-                  $postId = $row['id'];
-                  $commentsQuery = mysqli_query($conn, "SELECT * FROM comments WHERE post_id = $postId ORDER BY created_at ASC");
-                  while ($comment = mysqli_fetch_assoc($commentsQuery)) :
-                    $commentUser = mysqli_real_escape_string($conn, $comment['username']);
-                    $commentUserQuery = mysqli_query($conn, "SELECT profile_picture FROM users WHERE username = '$commentUser' LIMIT 1");
-                    $commentUserData = mysqli_fetch_assoc($commentUserQuery);
-                    $commentPfp = (isset($commentUserData['profile_picture']) && file_exists("../css/images/" . $commentUserData['profile_picture']))
-                      ? "../css/images/" . $commentUserData['profile_picture']
-                      : "../css/images/pfp.png";
-                  ?>
-                    <div style="margin-top:5px; padding:8px; background:#111; border-radius:5px; color:#ccc; font-size:13px; display:flex; align-items:center;">
-                      <img src="<?php echo $commentPfp; ?>" alt="pfp" style="width:25px; height:25px; border-radius:50%; object-fit:cover; margin-right:8px;">
-                      <a href="userprofile.php?username=<?php echo urlencode($comment['username']); ?>" style="color:#4caf50; text-decoration:none; font-weight:bold;">
-                        @<?php echo htmlspecialchars($comment['username']); ?>:
-                      </a> 
-                      <span style="margin-left:5px;"><?php echo htmlspecialchars($comment['content']); ?></span>
-                    </div>
-                  <?php endwhile; ?>
-                </div>
+                    <?php
+                    $postId = $row['id'];
+                    $commentsQuery = mysqli_query($conn, "SELECT * FROM comments WHERE post_id = $postId ORDER BY created_at ASC");
+                    while ($comment = mysqli_fetch_assoc($commentsQuery)) :
+                      $commentUser = mysqli_real_escape_string($conn, $comment['username']);
+                      $commentUserQuery = mysqli_query($conn, "SELECT profile_picture FROM users WHERE username = '$commentUser' LIMIT 1");
+                      $commentUserData = mysqli_fetch_assoc($commentUserQuery);
+                      $commentPfp = (isset($commentUserData['profile_picture']) && file_exists("../css/images/" . $commentUserData['profile_picture']))
+                        ? "../css/images/" . $commentUserData['profile_picture']
+                        : "../css/images/pfp.png";
+                    ?>
+                      <div style="margin-top:5px; padding:8px; background:#111; border-radius:5px; color:#ccc; font-size:13px; display:flex; align-items:center;">
+                        <img src="<?php echo $commentPfp; ?>" alt="pfp" style="width:25px; height:25px; border-radius:50%; object-fit:cover; margin-right:8px;">
+                        <a href="userprofile.php?username=<?php echo urlencode($comment['username']); ?>" style="color:#4caf50; text-decoration:none; font-weight:bold;">
+                          @<?php echo htmlspecialchars($comment['username']); ?>:
+                        </a>
+                        <span style="margin-left:5px;"><?php echo htmlspecialchars($comment['content']); ?></span>
+                      </div>
+                    <?php endwhile; ?>
+                  </div>
                 <?php endwhile; ?>
               </div>
               <form method="post" class="comment-form" style="margin-top:8px;">
@@ -472,23 +525,24 @@ $result = mysqli_query($conn, $query);
     </div> <!-- End of credits -->
   </div>
 
-  <script>
-  function toggleCode(codeId, btn) {
-    const codeEl = document.getElementById(codeId);
-    const full = JSON.parse(btn.dataset.full);
-    const preview = JSON.parse(btn.dataset.preview);
+  <!--See more code button-->
+  <script> 
+    function toggleCode(codeId, btn) {
+      const codeEl = document.getElementById(codeId);
+      const full = JSON.parse(btn.dataset.full);
+      const preview = JSON.parse(btn.dataset.preview);
 
-    if (btn.dataset.state === "collapsed") {
-      codeEl.textContent = full; // KEEP STYLING INTACT
-      btn.dataset.state = "expanded";
-      btn.innerText = "See Less";
-    } else {
-      codeEl.textContent = preview; // KEEP STYLING INTACT
-      btn.dataset.state = "collapsed";
-      btn.innerText = "See More";
+      if (btn.dataset.state === "collapsed") {
+        codeEl.textContent = full;
+        btn.dataset.state = "expanded";
+        btn.innerText = "See Less";
+      } else {
+        codeEl.textContent = preview;
+        btn.dataset.state = "collapsed";
+        btn.innerText = "See More";
+      }
     }
-  }
-</script>
+  </script>
 
 
 </body>
