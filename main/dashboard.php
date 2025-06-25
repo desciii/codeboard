@@ -457,11 +457,14 @@ $result = mysqli_query($conn, $query);
         <select name="language" id="language" onchange="document.getElementById('filterForm').submit();"
           style="padding:5px; border-radius:5px; background:#1a1a1a; color:#fff; border:1px solid #333; width: 140px;">
           <option value="">All Languages</option>
-          <option value="HTML">HTML</option>
-          <option value="CSS">CSS</option>
-          <option value="JavaScript">JavaScript</option>
           <option value="PHP">PHP</option>
-          <option value="Python">Python</option>
+          <option value="CSS">CSS</option>
+          <option value="HTML">HTML</option>
+          <option value="JavaScript">JavaScript</option>
+          <option value="SQL">SQL</option>
+          <option value="Java">Java</option>
+          <option value="C">C</option>
+          <option value="C++">C++</option>
         </select>
       </form>
       <div id="posts-container" style="margin-top: 20px;">

@@ -54,11 +54,14 @@ if (!isset($_SESSION['username'])) {
 
       <select name="language" required style="padding: 8px; margin-bottom: 10px; width: 100%; font-family: monospace;">
         <option value="" disabled selected>Select Language</option>
-        <option value="HTML">HTML</option>
-        <option value="CSS">CSS</option>
-        <option value="JavaScript">JavaScript</option>
         <option value="PHP">PHP</option>
-        <option value="Python">Python</option>
+        <option value="CSS">CSS</option>
+        <option value="HTML">HTML</option>
+        <option value="JavaScript">JavaScript</option>
+        <option value="SQL">SQL</option>
+        <option value="Java">Java</option>
+        <option value="C">C</option>
+        <option value="C++">C++</option>
       </select>
 
       <button type="submit" style="width: 100%;">Post</button>

@@ -116,11 +116,14 @@ $tagsString = implode(', ', $tagNames);
       <input type="text" name="tags" id="tags" value="<?php echo htmlspecialchars($tagsString); ?>" placeholder="Add tags separated by commas, e.g., php, html" style="width: 96%; padding: 10px; margin-bottom: 10px;"/>
 
       <select name="language" id="language" required style="padding: 8px; margin-bottom: 10px; width: 100%; font-family: monospace;">
-        <option value="HTML" <?php if($post['language'] == 'HTML') echo 'selected'; ?>>HTML</option>
-        <option value="CSS" <?php if($post['language'] == 'CSS') echo 'selected'; ?>>CSS</option>
-        <option value="JavaScript" <?php if($post['language'] == 'JavaScript') echo 'selected'; ?>>JavaScript</option>
         <option value="PHP" <?php if($post['language'] == 'PHP') echo 'selected'; ?>>PHP</option>
-        <option value="Python" <?php if($post['language'] == 'Python') echo 'selected'; ?>>Python</option>
+        <option value="CSS" <?php if($post['language'] == 'CSS') echo 'selected'; ?>>CSS</option>
+        <option value="HTML" <?php if($post['language'] == 'HTML') echo 'selected'; ?>>HTML</option>
+        <option value="JavaScript" <?php if($post['language'] == 'JavaScript') echo 'selected'; ?>>JavaScript</option>
+        <option value="SQL" <?php if($post['language'] == 'SQL') echo 'selected'; ?>>SQL</option>
+        <option value="Java" <?php if($post['language'] == 'Java') echo 'selected'; ?>>Java</option>
+        <option value="C" <?php if($post['language'] == 'C') echo 'selected'; ?>>C</option>
+        <option value="C++" <?php if($post['language'] == 'C++') echo 'selected'; ?>>C++</option>
       </select>
 
       <button type="submit" style="width: 100%;">Update Post</button>
