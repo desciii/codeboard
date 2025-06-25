@@ -268,7 +268,6 @@ if (isset($_POST['update_links'])) {
     #sidebar-links {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly; 
     align-items: center;
     width: 100%;
     margin: 0;
@@ -443,7 +442,7 @@ if (isset($_POST['update_links'])) {
     #sidebar-links a {
     display: flex;
     align-items: center;
-    margin-top: 50px;
+    margin-top: 30px;
     }
 
     #sidebar-links a i {
