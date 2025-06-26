@@ -16,16 +16,16 @@ User Authentication (Login & Register)
  Danger Zone: Delete Account (with posts, comments, likes)  
  Responsive & Dark Themed UI  
  Font Awesome Icons Integration
-Profile Customization BIO's and Social Links
-Viewing Other Profiles
-Profile Section
-Tag System
-Tagging system for posts (e.g., `#for-loop`, `#php`, `#arrays`)
-Profile page view for each user
-Search by tag or keyword
-Edit / Delete Posts
-Added Security
-Cookies and Session
+ Profile Customization BIO's and Social Links
+ Viewing Other Profiles
+ Profile Section
+ Tag System
+ Tagging system for posts (e.g., `#for-loop`, `#php`, `#arrays`)
+ Profile page view for each user
+ Search by tag or keyword
+ Edit / Delete Posts
+ Added Security
+ Cookies and Session
 
 ## Technologies Used
 
