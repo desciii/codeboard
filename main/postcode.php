@@ -1,8 +1,13 @@
 <?php
 session_start();
 if (!isset($_SESSION['username'])) {
-  header("Location: login.php");
-  exit();
+    // Check if cookie exists
+    if (isset($_COOKIE['username'])) {
+        $_SESSION['username'] = $_COOKIE['username']; // Restore session from cookie
+    } else {
+        header("Location: login.php");
+        exit();
+    }
 }
 ?>
 

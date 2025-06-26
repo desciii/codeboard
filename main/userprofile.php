@@ -2,6 +2,16 @@
 session_start();
 include('db.php');
 
+if (!isset($_SESSION['username'])) {
+  // Check if cookie exists
+  if (isset($_COOKIE['username'])) {
+    $_SESSION['username'] = $_COOKIE['username']; // Restore session from cookie
+  } else {
+    header("Location: login.php");
+    exit();
+  }
+}
+
 $username = $_SESSION['username'] ?? null;
 $viewedUser = $_GET['username'] ?? null;
 
@@ -21,9 +31,9 @@ if (mysqli_num_rows($userQuery) == 0) {
 $user = mysqli_fetch_assoc($userQuery);
 $profilePicture = $user['profile_picture'] ?? '';
 if ($profilePicture && file_exists("../css/images/" . $profilePicture)) {
-    $imagePath = "../css/images/" . $profilePicture;
+  $imagePath = "../css/images/" . $profilePicture;
 } else {
-    $imagePath = "../css/images/pfp.png";
+  $imagePath = "../css/images/pfp.png";
 }
 
 $bio = $user['bio'] ?? 'No bio provided.';
@@ -52,344 +62,344 @@ $tiktok = $user['tiktok_link'] ?? '';
   <style>
     html,
     body {
-    height: 100%;
-    margin: 0;
-    overflow: hidden;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
     }
 
     #container {
-    display: flex;
-    height: 95vh;
-    overflow: hidden;
-    border: 3px solid #333;
-    border-radius: 12px;
-    box-sizing: border-box;
+      display: flex;
+      height: 95vh;
+      overflow: hidden;
+      border: 3px solid #333;
+      border-radius: 12px;
+      box-sizing: border-box;
     }
 
     #sidebar {
-    height: 95vh;
-    overflow-y: hidden;
-    flex-shrink: 0;
+      height: 95vh;
+      overflow-y: hidden;
+      flex-shrink: 0;
     }
 
     #main {
-    flex: 1;
-    overflow-y: auto;
-    padding-right: 10px;
-    scrollbar-width: thin;
-    scrollbar-color: #4caf50 #1a1a1a;
+      flex: 1;
+      overflow-y: auto;
+      padding-right: 10px;
+      scrollbar-width: thin;
+      scrollbar-color: #4caf50 #1a1a1a;
     }
 
     #main::-webkit-scrollbar {
-    width: 8px;
+      width: 8px;
     }
 
     #main::-webkit-scrollbar-thumb {
-    background-color: #4caf50;
-    border-radius: 10px;
-    border: 2px solid #1a1a1a;
+      background-color: #4caf50;
+      border-radius: 10px;
+      border: 2px solid #1a1a1a;
     }
 
     #main::-webkit-scrollbar-track {
-    background-color: #1a1a1a;
+      background-color: #1a1a1a;
     }
 
     .post {
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    background: #1a1a1a;
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 8px;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      background: #1a1a1a;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 8px;
     }
 
     .post pre {
-    white-space: pre-wrap;
-    word-break: break-word;
-    overflow-x: auto;
-    background: #0d0d0d;
-    padding: 10px;
-    border-radius: 5px;
-    color: #ccc;
+      white-space: pre-wrap;
+      word-break: break-word;
+      overflow-x: auto;
+      background: #0d0d0d;
+      padding: 10px;
+      border-radius: 5px;
+      color: #ccc;
     }
 
     .like-form {
-    margin-top: 8px;
+      margin-top: 8px;
     }
 
     .like-btn {
-    background: none;
-    border: none;
-    color: #ccc;
-    cursor: pointer;
-    font-size: 14px;
+      background: none;
+      border: none;
+      color: #ccc;
+      cursor: pointer;
+      font-size: 14px;
     }
 
     .like-btn:hover {
-    color: #ff4d4d;
+      color: #ff4d4d;
     }
 
     .pfp {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 8px;
-    vertical-align: middle;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 8px;
+      vertical-align: middle;
     }
 
     .profile-header {
-    text-align: center;
-    background-color: #111;
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 25px;
+      text-align: center;
+      background-color: #111;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 25px;
     }
 
     .profile-header img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 10px;
-    border: 2px solid #4caf50;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 10px;
+      border: 2px solid #4caf50;
     }
 
     .profile-header h2 {
-    color: #4caf50;
-    margin: 5px 0;
+      color: #4caf50;
+      margin: 5px 0;
     }
 
     .profile-header p {
-    color: #ccc;
-    margin: 5px 0;
+      color: #ccc;
+      margin: 5px 0;
     }
 
     .post {
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    background: #1a1a1a;
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 8px;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      background: #1a1a1a;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 8px;
     }
 
     .post pre {
-    white-space: pre-wrap;
-    word-break: break-word;
-    overflow-x: auto;
-    background: #0d0d0d;
-    padding: 10px;
-    border-radius: 5px;
-    color: #ccc;
+      white-space: pre-wrap;
+      word-break: break-word;
+      overflow-x: auto;
+      background: #0d0d0d;
+      padding: 10px;
+      border-radius: 5px;
+      color: #ccc;
     }
 
     #main h3 {
-    color: #4caf50;
-    margin-bottom: 15px;
+      color: #4caf50;
+      margin-bottom: 15px;
     }
 
 
-    @media screen and (max-width: 619px){
-   html,
-    body {
-    height: auto;
-    overflow-x: hidden;
-    }
+    @media screen and (max-width: 619px) {
 
-    #container {
-    display: block;
-    height: 95vh;
-    overflow: visible;
-    padding: 5px;
-    margin: 0;
-    box-sizing: border-box;
-    }
+      html,
+      body {
+        height: auto;
+        overflow-x: hidden;
+      }
 
-    #sidebar {
-    display: flex;
-    width: 100%;
-    max-width: 100%; 
-    margin-bottom: 15px;
-    height: auto;
-    border-radius: 10px;
-    padding: 8px 5px;
-    box-sizing: border-box;
-    overflow: hidden;
-    }
+      #container {
+        display: block;
+        height: 95vh;
+        overflow: visible;
+        padding: 5px;
+        margin: 0;
+        box-sizing: border-box;
+      }
 
-    #sidebar-links {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 100%;
-    margin: 0;
-    list-style: none;
-    box-sizing: border-box;
-    }
+      #sidebar {
+        display: flex;
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 15px;
+        height: auto;
+        border-radius: 10px;
+        padding: 8px 5px;
+        box-sizing: border-box;
+        overflow: hidden;
+      }
 
-    #sidebar-links li {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-    }
+      #sidebar-links {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        margin: 0;
+        list-style: none;
+        box-sizing: border-box;
+      }
 
-    #sidebar-links a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 60px; 
-    height: 60px; 
-    background-color: #333;
-    border-radius: 15%;
-    color: transparent;
-    font-size: 0;
-    box-sizing: border-box;
-    }
+      #sidebar-links li {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+      }
 
-    #sidebar-links i {
-    font-size: 26px; 
-    color: #fff;
-    }
+      #sidebar-links a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 60px;
+        height: 60px;
+        background-color: #333;
+        border-radius: 15%;
+        color: transparent;
+        font-size: 0;
+        box-sizing: border-box;
+      }
 
-    #sidebar h1 {
-    display: none;
-    }
+      #sidebar-links i {
+        font-size: 26px;
+        color: #fff;
+      }
 
-    #dashboard-link i {
-    color: #4caf50 !important;
-    }
+      #sidebar h1 {
+        display: none;
+      }
 
-    #main {
-    height: calc(95vh - 120px); 
-    width: 98%;
-    max-width: 98%;
-    overflow-y: auto;
-    overflow-x: hidden; 
-    padding: 0 5px;
-    box-sizing: border-box;
-    }
+      #dashboard-link i {
+        color: #4caf50 !important;
+      }
 
-    #main h1 {
-    font-size: 18px;
-    text-align: center;
-    margin-bottom: 15px;
-    }
+      #main {
+        height: calc(95vh - 120px);
+        width: 98%;
+        max-width: 98%;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 0 5px;
+        box-sizing: border-box;
+      }
 
-    #createpost {
-    display: inline-block;
-    width: auto;
-    padding: 8px 14px;
-    font-size: 14px;
-    margin-bottom: 15px;
-    }
+      #main h1 {
+        font-size: 18px;
+        text-align: center;
+        margin-bottom: 15px;
+      }
 
-    form {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    }
+      #createpost {
+        display: inline-block;
+        width: auto;
+        padding: 8px 14px;
+        font-size: 14px;
+        margin-bottom: 15px;
+      }
 
-    form select,
-    form button {
-    width: 100%;
-    }
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
 
-    .post {
-    padding: 12px;
-    }
+      form select,
+      form button {
+        width: 100%;
+      }
 
-    .post h3 {
-    font-size: 14px;
-    line-height: 1.3;
-    }
+      .post {
+        padding: 12px;
+      }
 
-    .post pre {
-    font-size: 12px;
-    }
+      .post h3 {
+        font-size: 14px;
+        line-height: 1.3;
+      }
 
-    .comment-form input {
-    width: calc(90% - 35px)!important;
-    justify-content: center;
-    margin: 0 auto;
-    align-items: center;
-    }
+      .post pre {
+        font-size: 12px;
+      }
 
-    .comment-form i {
-    display: none;
-    }
+      .comment-form input {
+        width: calc(90% - 35px) !important;
+        justify-content: center;
+        margin: 0 auto;
+        align-items: center;
+      }
 
-    #credits {
-    display: none;
-    }
+      .comment-form i {
+        display: none;
+      }
+
+      #credits {
+        display: none;
+      }
     }
 
     @media screen and (max-width: 412px) {
-    #container {
-    padding: 2px;
+      #container {
+        padding: 2px;
+      }
+
+      #sidebar {
+        padding: 5px 2px;
+      }
+
+      #sidebar-links a {
+        width: 45px;
+        height: 45px;
+      }
+
+      #sidebar-links i {
+        font-size: 24px;
+      }
+
+      #createpost {
+        width: 100px;
+        font-size: 12px;
+      }
+    }
+
+
+    @media screen and (max-width: 1025px) and (min-width: 619px) {
+      #credits {
+        display: none;
+      }
+
+      #sidebar-links i {
+        font-size: 40px !important;
+        color: #fff;
+      }
+
+      #sidebar-links a {
+        display: flex;
+        align-items: center;
+        margin-top: 30px;
+      }
+
+      #sidebar-links a i {
+        font-size: 30px;
+        color: #fff;
+        gap: 30px;
+        margin: 0 auto;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #sidebar-links a::after {
+        content: "";
+      }
+
+      #sidebar-links a {
+        color: transparent;
+        font-size: 0;
+      }
     }
 
     #sidebar {
-    padding: 5px 2px;
+      overflow-y: auto;
     }
-
-    #sidebar-links a {
-    width: 45px;
-    height: 45px;
-    }
-
-    #sidebar-links i {
-    font-size: 24px; 
-    }
-
-    #createpost {
-    width: 100px;
-    font-size: 12px;
-    }
-    }
-
-
-    @media screen and (max-width: 1025px ) and (min-width: 619px) {
-    #credits {
-    display: none;
-    }
-
-    #sidebar-links i {
-    font-size: 40px !important;
-    color: #fff;
-    }
-
-    #sidebar-links a {
-    display: flex;
-    align-items: center;
-    margin-top: 30px;
-    }
-
-    #sidebar-links a i {
-    font-size: 30px;   
-    color: #fff;       
-    gap: 30px;
-    margin: 0 auto;
-    justify-content: center;
-    align-items: center;
-    }
-
-    #sidebar-links a::after {
-    content: "";
-    }
-
-    #sidebar-links a {
-    color: transparent;
-    font-size: 0;
-    }
-    }
-
-    #sidebar {
-    overflow-y: auto;
-    }
-
   </style>
 </head>
 
@@ -402,9 +412,10 @@ $tiktok = $user['tiktok_link'] ?? '';
         <li><a href="profile.php"><i class="fa-solid fa-user-circle"></i> Profile</a></li>
         <li><a href="myposts.php"><i class="fa-solid fa-file-lines"></i> My Posts</a></li>
         <li><a href="settings.php"><i class="fa-solid fa-gear"></i> Settings</a></li>
-        <li><a href="login.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+        <li><a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
       </ul>
     </div>
+    <!-- End of sidebar -->
 
     <div id="main">
       <div class="profile-header">
@@ -426,7 +437,6 @@ $tiktok = $user['tiktok_link'] ?? '';
         </div>
       </div>
 
-
       <h3 style="color: white;">Recent Posts</h3>
 
       <?php if (mysqli_num_rows($postQuery) == 0): ?>
@@ -438,26 +448,66 @@ $tiktok = $user['tiktok_link'] ?? '';
           <div class="post">
             <h3 style="font-size: 20px;"><?php echo htmlspecialchars($post['title']); ?></h3>
             <br style="font-size: 14px;"><?php echo htmlspecialchars($post['language']); ?> </br>
-            <pre><?php echo htmlspecialchars($post['content']); ?></pre>
-              <?php
-              $postId = $post['id'];
-              $tagsQuery = mysqli_query($conn, "SELECT t.name FROM tags t
-                                                INNER JOIN post_tags pt ON t.id = pt.tag_id
-                                                WHERE pt.post_id = $postId");
-
-              $tags = [];
-              while ($tagRow = mysqli_fetch_assoc($tagsQuery)) {
-                $tags[] = '#' . htmlspecialchars($tagRow['name']);
-              }
-              if (!empty($tags)) {
-                echo '<div style="color:#ccc; font-size:13px; margin-bottom:5px;">' . implode(' ', $tags) . '</div>';
-              }
+            <?php
+            $codeLines = explode("\n", $post['content']);
+            $isLong = count($codeLines) > 30;
+            $preview = implode("\n", array_slice($codeLines, 0, 30));
+            $full = $post['content'];
+            $postUniqueId = 'post-' . $post['id'];
             ?>
+
+            <pre><code id="<?php echo $postUniqueId; ?>"><?php echo htmlspecialchars($isLong ? $preview : $full); ?></code></pre>
+
+            <?php
+            $postId = $post['id'];
+            $tagsQuery = mysqli_query($conn, "SELECT t.name FROM tags t
+                                              INNER JOIN post_tags pt ON t.id = pt.tag_id
+                                              WHERE pt.post_id = $postId");
+
+            $tags = [];
+            while ($tagRow = mysqli_fetch_assoc($tagsQuery)) {
+              $tags[] = '#' . htmlspecialchars($tagRow['name']);
+            }
+            if (!empty($tags)) {
+              echo '<div style="color:#4caf50; font-size:16px; margin-bottom:5px; text-decoration:underline;">' . implode(' ', $tags) . '</div>';
+            }
+            ?>
+
+            <?php if ($isLong): ?>
+              <button
+                onclick="toggleCode('<?php echo $postUniqueId; ?>', this)"
+                data-full="<?php echo htmlspecialchars(json_encode($full)); ?>"
+                data-preview="<?php echo htmlspecialchars(json_encode($preview)); ?>"
+                data-state="collapsed"
+                style="background:none; border:none; color:#4caf50; cursor:pointer; margin-top:5px;">
+                See More
+              </button>
+            <?php endif; ?>
+
             <small style="color:#777;">Posted on: <?php echo $post['created_at']; ?></small>
+            <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #333;">
+              <strong style="color:#4caf50; font-size:14px;">Comments:</strong>
+              <?php
+              $commentsQuery = mysqli_query($conn, "SELECT * FROM comments WHERE post_id = $postId ORDER BY created_at ASC");
+              if (mysqli_num_rows($commentsQuery) == 0) {
+                echo "<p style='color:#888; font-size:13px;'>No comments yet.</p>";
+              } else {
+                while ($comment = mysqli_fetch_assoc($commentsQuery)) {
+                  
+                  echo "<div style='margin-top:5px; background:#111; padding:6px 10px; border-radius:6px;'>";
+                  echo "<strong style='color:#4caf50; font-size:13px;'>@" . htmlspecialchars($comment['username']) . "</strong>";
+                  echo "<p style='color:#ccc; font-size:13px; margin: 2px 0;'>" . htmlspecialchars($comment['content']) . "</p>";
+                  echo "<small style='color:#666; font-size:11px;'>" . $comment['created_at'] . "</small>";
+                  echo "</div>";
+                }
+              }
+              ?>
+            </div>
           </div>
         <?php endwhile; ?>
       <?php endif; ?>
     </div>
+    <!-- End of main content -->
 
     <div id="credits" style="text-align:center;">
       <h1>This website is created <br>by @desciii.</h1>
@@ -470,7 +520,30 @@ $tiktok = $user['tiktok_link'] ?? '';
         <a href="https://www.facebook.com/marlouangelo.panungcat/" target="_blank" style="color:#4caf50; text-decoration:none; display:block;"><i class="fa-brands fa-facebook"></i> Facebook</a>
       </div>
     </div>
+    <!-- End of credits -->
+
   </div>
+  <!-- End of container -->
+
+  <script>
+      function toggleCode(codeId, btn) {
+        const codeEl = document.getElementById(codeId);
+        const full = JSON.parse(btn.dataset.full);
+        const preview = JSON.parse(btn.dataset.preview);
+
+        if (btn.dataset.state === "collapsed") {
+          codeEl.textContent = full;
+          btn.dataset.state = "expanded";
+          btn.innerText = "See Less";
+        } else {
+          codeEl.textContent = preview;
+          btn.dataset.state = "collapsed";
+          btn.innerText = "See More";
+        }
+      }
+    </script>
+    <!-- End of see more -->
+
 </body>
 
 </html>

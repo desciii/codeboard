@@ -2,9 +2,18 @@
 session_start();
 include('db.php');
 
+if (!isset($_SESSION['username'])) {
+    // Check if cookie exists
+    if (isset($_COOKIE['username'])) {
+        $_SESSION['username'] = $_COOKIE['username']; // Restore session from cookie
+    } else {
+        header("Location: login.php");
+        exit();
+    }
+}
+
 $username = $_SESSION['username'] ?? null;
 
-// ✅ Fetch logged in user info for *their* profile picture
 $userQuery = mysqli_query($conn, "SELECT * FROM users WHERE username = '$username' LIMIT 1");
 $user = mysqli_fetch_assoc($userQuery);
 
@@ -440,7 +449,7 @@ $result = mysqli_query($conn, $query);
         <li><a href="profile.php"><i class="fa-solid fa-user-circle"></i> Profile</a></li>
         <li><a href="myposts.php"><i class="fa-solid fa-file-lines"></i> My Posts</a></li>
         <li><a href="settings.php"><i class="fa-solid fa-gear"></i> Settings</a></li>
-        <li><a href="login.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+        <li><a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
       </ul>
     </div> <!-- End of sidebar -->
 

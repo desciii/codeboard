@@ -4,8 +4,13 @@ include('db.php');
 
 // Check if user is logged in
 if (!isset($_SESSION['username'])) {
-  header('Location: login.php');
-  exit();
+    // Check if cookie exists
+    if (isset($_COOKIE['username'])) {
+        $_SESSION['username'] = $_COOKIE['username']; // Restore session from cookie
+    } else {
+        header("Location: login.php");
+        exit();
+    }
 }
 
 $username = $_SESSION['username'];
@@ -442,7 +447,7 @@ if ($profilePicture && file_exists("../css/images/" . $profilePicture)) {
         <li><a href="profile.php"><i class="fa-solid fa-user-circle"></i> Profile</a></li>
         <li><a href="myposts.php" id="dashboard-link" style="background-color:#333; color:#fff;"><i class="fa-solid fa-file-lines"></i> My Posts</a></li>
         <li><a href="settings.php"><i class="fa-solid fa-gear"></i> Settings</a></li>
-        <li><a href="login.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+        <li><a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
       </ul>
     </div> <!-- End of sidebar -->
 

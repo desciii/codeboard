@@ -4,9 +4,14 @@ include('db.php');
 
 $username = $_SESSION['username'] ?? null;
 
-if (!$username) {
-  header("Location: login.php");
-  exit();
+if (!isset($_SESSION['username'])) {
+    // Check if cookie exists
+    if (isset($_COOKIE['username'])) {
+        $_SESSION['username'] = $_COOKIE['username']; // Restore session from cookie
+    } else {
+        header("Location: login.php");
+        exit();
+    }
 }
 
 // Initialize separate error variables
@@ -607,7 +612,7 @@ if (isset($_POST['update_links'])) {
         <li><a href="profile.php"><i class="fa-solid fa-user-circle"></i> Profile</a></li>
         <li><a href="myposts.php"><i class="fa-solid fa-file-lines"></i> My Posts</a></li>
         <li><a href="settings.php" style="background-color: #333; color: #fff" id="dashboard-link"><i class="fa-solid fa-gear"></i> Settings</a></li>
-        <li><a href="login.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+        <li><a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
       </ul>
     </div>
 
