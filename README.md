@@ -1,6 +1,6 @@
 # CB
 
-A Side Project named Code Board
+A Side Project named Code Board - Considered Finished
 
 # Code Board
 
@@ -24,6 +24,8 @@ Tagging system for posts (e.g., `#for-loop`, `#php`, `#arrays`)
 Profile page view for each user
 Search by tag or keyword
 Edit / Delete Posts
+Added Security
+Cookies and Session
 
 ## Technologies Used
 
@@ -58,13 +60,6 @@ Edit / Delete Posts
 4. **Run the Project:**
    - Start Apache & MySQL via XAMPP.
    - Open browser: `http://localhost/your-folder/CB/main/login.php`
-
-## Planned Features
-
-- Edit Comments
-- Basic notifications for interactions (likes, comments)
-- Better error handling & form validation
-- Possibly using prepared statements for added security
 
 ## Credits
 
