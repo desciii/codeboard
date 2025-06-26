@@ -8,24 +8,26 @@ A simple web-based code sharing board where users can post code snippets, share 
 
 ## Features
 
-User Authentication (Login & Register)  
- Create Posts (with code snippets, plain text, etc.)  
- Like & Comment on Posts  
- Profile Picture Upload  
- Change Username & Password  
- Danger Zone: Delete Account (with posts, comments, likes)  
- Responsive & Dark Themed UI  
- Font Awesome Icons Integration
- Profile Customization BIO's and Social Links
- Viewing Other Profiles
- Profile Section
- Tag System
- Tagging system for posts (e.g., `#for-loop`, `#php`, `#arrays`)
- Profile page view for each user
- Search by tag or keyword
- Edit / Delete Posts
- Added Security
- Cookies and Session
+## Features
+
+- User Authentication (Login & Register)  
+- Create Posts (with code snippets, plain text, etc.)  
+- Like & Comment on Posts  
+- Profile Picture Upload  
+- Change Username & Password  
+- Danger Zone: Delete Account (with posts, comments, likes)  
+- Responsive & Dark Themed UI  
+- Font Awesome Icons Integration  
+- Profile Customization (BIOs and Social Links)  
+- Viewing Other Profiles  
+- Profile Section  
+- Tag System  
+- Tagging system for posts (e.g., #for-loop, #php, #arrays)  
+- Profile page view for each user  
+- Search by tag or keyword  
+- Edit / Delete Posts  
+- Added Security (Cookies and Session)
+
 
 ## Technologies Used
 
