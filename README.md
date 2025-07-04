@@ -26,7 +26,7 @@ A simple web-based code sharing board where users can post code snippets, share 
 - Profile page view for each user  
 - Search by tag or keyword  
 - Edit / Delete Posts  
-- Added Security (Cookies and Session)
+- Added Security (Cookies and Sessions)
 
 
 ## Technologies Used
